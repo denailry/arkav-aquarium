@@ -1,6 +1,8 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
 
+#include <cstddef>
+
 template <class Type>
 class Element {
 	public:
