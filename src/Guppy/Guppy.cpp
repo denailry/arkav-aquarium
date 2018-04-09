@@ -2,7 +2,7 @@
 
 Guppy::Guppy(int x, int y) : Fish(x,y,TYPE_GUPPY){
 	setC(15);
-	setG(1);
+	setG(small);
 	setLastFed(this->tickTime);
 	setLastCoin(this->tickTime);
 }
