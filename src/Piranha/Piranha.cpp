@@ -8,7 +8,7 @@ int Piranha::getLastFed() const{
 	return this->lastFed;
 }
 
-void Piranha::setLastFed(int lf) const{
+void Piranha::setLastFed(int lf){
 	this->lastFed = lf;
 }
 

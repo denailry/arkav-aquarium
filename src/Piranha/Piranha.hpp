@@ -2,13 +2,14 @@
 #define PIRANHA_HPP
 
 #include "../Fish/Fish.hpp"
+#include "../Guppy/Guppy.hpp"
 
 class Piranha : public Fish
 {
 public:
     Piranha(int x, int y);
     int getLastFed() const;
-    void setLastFed(int) const;
+    void setLastFed(int);
     void tick(LinkedList<Guppy> const& guppies);
 private:
     /* Atribut untuk piranha (boleh ditambah kalau belum lengkap): */
