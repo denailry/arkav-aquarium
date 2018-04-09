@@ -20,6 +20,24 @@ int Entity::getX() const {
 int Entity::getY() const {
 	return this->y;
 }
+int Entity::getRadX() const {
+	return this->radX;
+}
+int Entity:: getRadY() const {
+	return this->radY;
+}
+int Entity::getLeft() const {
+	return this->x - this->radX;
+}
+int Entity::getRight() const {
+	return this->x + this->radX;
+}
+int Entity::getTop() const {
+	return this->y - this->radY;
+}
+int Entity::getBottom() const {
+	return this->y + this->radY;
+}
 
 // Setter
 void setId(int id) {
@@ -30,4 +48,10 @@ void setX(int x) {
 }
 void setY(int y) {
 	this->y = y;
+}
+void setRadX(int radX) {
+	this->radX = radX;
+}
+void setRadY(int radY) {
+	this->radY = radY;
 }

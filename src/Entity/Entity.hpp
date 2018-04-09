@@ -22,6 +22,8 @@ private:
 	int id; // Unique id for each entity
 	int x; // X-Position of Entity
 	int y; // Y-Position of Entity
+	int radY;
+	int radX;
 	char type; // type of Entity
 public:
 	// Constructor
@@ -36,11 +38,19 @@ public:
 	int getId() const;
 	int getX() const;
 	int getY() const;
+	int getRadX() const;
+	int getRadY() const;
+	int getTop() const;
+	int getLeft() const;
+	int getRight() const;
+	int getBottom() const;
 
 	// Setter
 	void setId(int id);
 	void setX(int x);
 	void setY(int y);
+	void setRadX(int radX);
+	void setRadY(int radY);
 };
 
 #endif
