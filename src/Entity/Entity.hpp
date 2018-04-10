@@ -20,38 +20,38 @@ class Entity : protected Tick {
 private:
 	Space *space; // The space where the entity belong
 	int id; // Unique id for each entity
-	int x; // X-Position of Entity
-	int y; // Y-Position of Entity
-	int radY;
-	int radX;
+	double x; // X-Position of Entity
+	double y; // Y-Position of Entity
+	double radY;
+	double radX;
 	char type; // type of Entity
 public:
 	// Constructor
 	// Need position x and y
 	// Need type
-	Entity(int x, int y, int width, int height, char type);
+	Entity(double x, double y, double width, double height, char type);
 
 	// Implementation of Tick
 	void tick(int delay);
 
 	// Getter
 	int getId() const;
-	int getX() const;
-	int getY() const;
-	int getRadX() const;
-	int getRadY() const;
-	int getTop() const;
-	int getLeft() const;
-	int getRight() const;
-	int getBottom() const;
+	double getX() const;
+	double getY() const;
+	double getRadX() const;
+	double getRadY() const;
+	double getTop() const;
+	double getLeft() const;
+	double getRight() const;
+	double getBottom() const;
 	Space* getSpace() const;
 
 	// Setter
 	void setId(int id);
-	void setX(int x);
-	void setY(int y);
-	void setRadX(int radX);
-	void setRadY(int radY);
+	void setX(double x);
+	void setY(double y);
+	void setRadX(double radX);
+	void setRadY(double radY);
 	void setSpace(Space *space);
 };
 

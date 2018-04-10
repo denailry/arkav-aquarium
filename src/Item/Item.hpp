@@ -5,7 +5,7 @@
 
 class Item : public Entity {
 	public:
-		Item(int x, int y, int width, int height, char type);
+		Item(double x, double y, double width, double height, char type);
 	protected:
 		bool isAtBottom; //apakah item sudah berada di dasar akuarium atau belum
 };

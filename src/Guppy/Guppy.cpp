@@ -1,6 +1,6 @@
 #include "Guppy.hpp"
 
-Guppy::Guppy(int x, int y, int width, int height) : Fish(x, y, width, height, TYPE_GUPPY) {
+Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_GUPPY) {
 	setC(15);
 	setG(small);
 	setLastFed(this->tickTime);

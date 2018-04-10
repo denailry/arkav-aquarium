@@ -1,5 +1,5 @@
 #include "Item.hpp"
 
-Item::Item(int x, int y, int width, int height, char type) : Entity(x, y, width, height, type){
+Item::Item(double x, double y, double width, double height, char type) : Entity(x, y, width, height, type){
 	isAtBottom = false;
 }

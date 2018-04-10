@@ -5,7 +5,7 @@
 
 class Coin : public Item {
 	public:
-		Coin(int x, int y, int width, int height, int nilai);
+		Coin(double x, double y, double width, double height, int nilai);
 		int getValue(); //mendapatkan nilai koin
 		void tick(int delay);
 	private:

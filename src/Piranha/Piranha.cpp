@@ -1,6 +1,6 @@
 #include "Piranha.hpp"
 
-Piranha::Piranha(int x, int y, int width, int height) : Fish(x, y, width, height, TYPE_PIRANHA){
+Piranha::Piranha(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_PIRANHA){
 	setLastFed(this->tickTime); 
 }
 

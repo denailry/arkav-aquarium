@@ -7,7 +7,7 @@
 class Piranha : public Fish
 {
 public:
-    Piranha(int x, int y, int width, int height);
+    Piranha(double x, double y, double width, double height);
     int getLastFed() const;
     void setLastFed(int);
     void tick(LinkedList<Guppy> const& guppies, int delay);

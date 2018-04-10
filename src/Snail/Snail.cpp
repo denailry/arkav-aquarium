@@ -1,13 +1,13 @@
 #include "Snail.hpp"
 #include <cmath>
 
-double distanceWith(int pos1X, int pos1Y, int pos2X, int pos2Y) {
-	int xDiff = std::abs(pos1X - pos2X);
-	int yDiff = std::abs(pos1Y - pos2Y);
+double distanceWith(double pos1X, double pos1Y, double pos2X, double pos2Y) {
+	double xDiff = std::abs(pos1X - pos2X);
+	double yDiff = std::abs(pos1Y - pos2Y);
 	return sqrt(xDiff*xDiff + yDiff*yDiff);
 }
 
-Snail::Snail(int x, int y, int width, int height) : Entity(x, y, width, height, TYPE_SNAIL) {
+Snail::Snail(double x, double y, double width, double height) : Entity(x, y, width, height, TYPE_SNAIL) {
 	return;	
 }
 

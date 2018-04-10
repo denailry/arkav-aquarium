@@ -23,7 +23,7 @@ private:
 public:
 	// Constructor
 	// Need position x and y
-	Snail(int x, int y, int width, int height);
+	Snail(double x, double y, double width, double height);
 
 	// On every tick of game
 	// Get list of coins

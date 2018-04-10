@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-Entity::Entity(int x, int y, int width, int height, char type) {
+Entity::Entity(double x, double y, double width, double height, char type) {
 	this->radX = width/2;
 	this->radY = height/2;
 	this->x = x;
@@ -16,28 +16,28 @@ void Entity::tick(int delay) {
 int Entity::getId() const {
 	return this->id;
 }
-int Entity::getX() const {
+double Entity::getX() const {
 	return this->x;
 }
-int Entity::getY() const {
+double Entity::getY() const {
 	return this->y;
 }
-int Entity::getRadX() const {
+double Entity::getRadX() const {
 	return this->radX;
 }
-int Entity:: getRadY() const {
+double Entity:: getRadY() const {
 	return this->radY;
 }
-int Entity::getLeft() const {
+double Entity::getLeft() const {
 	return this->x - this->radX;
 }
-int Entity::getRight() const {
+double Entity::getRight() const {
 	return this->x + this->radX;
 }
-int Entity::getTop() const {
+double Entity::getTop() const {
 	return this->y - this->radY;
 }
-int Entity::getBottom() const {
+double Entity::getBottom() const {
 	return this->y + this->radY;
 }
 Space* Entity::getSpace() const {
@@ -48,16 +48,16 @@ Space* Entity::getSpace() const {
 void Entity::setId(int id) {
 	this->id = id;
 }
-void Entity::setX(int x) {
+void Entity::setX(double x) {
 	this->x = x;
 }
-void Entity::setY(int y) {
+void Entity::setY(double y) {
 	this->y = y;
 }
-void Entity::setRadX(int radX) {
+void Entity::setRadX(double radX) {
 	this->radX = radX;
 }
-void Entity::setRadY(int radY) {
+void Entity::setRadY(double radY) {
 	this->radY = radY;
 }
 void Entity::setSpace(Space* space) {
