@@ -22,7 +22,7 @@ public:
     void setLastFed(int);
     void setLastCoin(int);
     //Service
-    void tick(LinkedList<Food> const& foods, int delay);
+    void tick(LinkedList<Food> const& foods, double delay);
 private:
     /* Atribut untuk guppy (boleh ditambah kalau belum lengkap): */
     int C; // Waktu periode ikan mengeluarkan koin

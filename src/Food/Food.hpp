@@ -6,7 +6,7 @@
 class Food : public Item {
 	public:
 		Food(double x, double y, double width, double height);
-		void tick(int delay);
+		void tick(double delay);
 };
 
 #endif

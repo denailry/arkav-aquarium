@@ -25,8 +25,8 @@ Aquarium::~Aquarium() {
 	delete screen;
 }
 
-void Aquarium::tickSnail() {
-	// this->snail->tick(coins);
+void Aquarium::tickSnail(double delay) {
+	this->snail->tick(coins, delay);
 }
 
 void Aquarium::printScreen() {
@@ -35,22 +35,22 @@ void Aquarium::printScreen() {
 
 void Aquarium::addCoin(Coin &coin) {
 	coins.add(coin);
-	addToScreen(coin);
+	// addToScreen(coin);
 }
 
 void Aquarium::addFood(Food &food) {
 	foods.add(food);
-	addToScreen(food);
+	// addToScreen(food);
 }
 
 void Aquarium::addGuppy(Guppy &guppy) {
 	guppies.add(guppy);
-	addToScreen(guppy);
+	// addToScreen(guppy);
 }
 
 void Aquarium::addPiranha(Piranha &piranha) {
 	piranhas.add(piranha);
-	addToScreen(piranha);
+	// addToScreen(piranha);
 }
 
 bool Aquarium::addToScreen(Entity &entity) {
@@ -82,7 +82,7 @@ Snail& Aquarium::getSnail() {
 	return *(this->snail);
 }
 
-void Aquarium::tick(int delay) 
+void Aquarium::tick(double delay) 
 {	return;
 }
 

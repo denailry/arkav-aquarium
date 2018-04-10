@@ -36,11 +36,11 @@ private:
 	// Tick for each entities
 	// Each of these functions call tick function in each derived Entities
 	// And provide corresponding parameter
-	void tickCoins();
-	void tickFoods();
-	void tickGuppies();
-	void tickPiranhas();
-	void tickSnail();
+	void tickCoins(double delay);
+	void tickFoods(double delay);
+	void tickGuppies(double delay);
+	void tickPiranhas(double delay);
+	void tickSnail(double delay);
 
 	// Add Entity to screen
 	bool addToScreen(Entity &entity);
@@ -75,7 +75,7 @@ public:
 	LinkedList<Piranha>& getPiranhas();
 	Snail& getSnail();
 
-	void tick(int delay);
+	void tick(double delay);
 
 	bool moveTo(int entityId, int entityType, int newX, int newY);
 	void remove(int entityId, int entityType);

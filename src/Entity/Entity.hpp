@@ -32,7 +32,7 @@ public:
 	Entity(double x, double y, double width, double height, char type);
 
 	// Implementation of Tick
-	void tick(int delay);
+	void tick(double delay);
 
 	// Getter
 	int getId() const;

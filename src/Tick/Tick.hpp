@@ -19,7 +19,7 @@ public:
 
 	// What to do for every tick of program
 	// Normally tick is doing tickTime++
-	virtual void tick(int delay) = 0;
+	virtual void tick(double delay) = 0;
 };
 
 #endif

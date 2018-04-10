@@ -8,7 +8,7 @@ Entity::Entity(double x, double y, double width, double height, char type) {
 	this->type = type;
 }
 
-void Entity::tick(int delay) {
+void Entity::tick(double delay) {
 	this->tickTime = tickTime + 1;
 }
 

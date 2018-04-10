@@ -80,6 +80,8 @@ int main( int argc, char* args[] )
         // Update FPS setiap detik
         frames_passed++;
         if (now - fpc_start > 1) {
+            
+            
             std::ostringstream strs;
             strs << "FPS: " ;
             strs << frames_passed/(now - fpc_start);
