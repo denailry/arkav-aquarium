@@ -15,12 +15,35 @@ void Piranha::setLastFed(int lf){
 void Piranha::tick(LinkedList<Guppy> const& guppies, double delay){	//belum diimplementasi
 }
 
-Guppy Piranha::findNearestGuppy(LinkedList<Guppy> const& guppies){	//belum diimplementasi
-	Guppy gup(3, 4, 3, 4);
-	return gup;
+Guppy Piranha::findNearestGuppy(LinkedList<Guppy> const& guppies){
+	Element<Guppy>* eGuppy = guppies.getFirst();
+	
+	Guppy nearestGuppy = eGuppy->getInfo();
+	double minDistance = distanceWith(
+		this->getX(),
+		this->getY(),
+		nearestGuppy.getX(), 
+		nearestGuppy.getY());
+
+	eGuppy = eGuppy->getNext();
+	while (eGuppy != NULL) {
+		double distance = distanceWith(
+			this->getX(),
+			this->getY(),
+			eGuppy->getInfo().getX(), 
+			eGuppy->getInfo().getY());
+		if (distance < minDistance) {
+			minDistance = distance;
+			nearestGuppy = eGuppy->getInfo();
+		}
+
+		eGuppy = eGuppy->getNext();
+	}
+
+	return nearestGuppy;
 }
     
-bool Piranha::isAbleToConsume(Guppy const& guppy){	//belum diimplementasi
+bool Piranha::isAbleToConsume(Guppy const& guppy){
 	return (this->getSpace())->isExist(guppy.getId()) && (
 		(coin.getX() > this->getLeft()) && 
 		(coin.getX() < this->getRight()) &&
