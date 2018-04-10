@@ -130,15 +130,49 @@ void Aquarium::remove(int entityId, int entityType) {
 		Element<Coin> *eCoin = coins.getFirst();
 		int i = 0;
 		while (eCoin != NULL) {
-			if (eCoin->getInfo()->getId() == entityId) {\
+			if (eCoin->getInfo()->getId() == entityId) {
 				coins.remove(i);
 				break;
 			}
 			eCoin = eCoin->getNext();
 			i++;
 		}
+	} else if (entityType == TYPE_FOOD) {
+		Element<Food> *eFood = foods.getFirst();
+		int i = 0;
+		while (eFood != NULL) {
+			if (eFood->getInfo()->getId() == entityId) {
+				foods.remove(i);
+				break;
+			}
+			eFood = eFood->getNext();
+			i++;
+		}
+	} else if (entityType == TYPE_GUPPY) {
+		Element<Guppy> *eGuppy = guppies.getFirst();
+		int i = 0;
+		while (eGuppy != NULL) {
+			if (eGuppy->getInfo()->getId() == entityId) {
+				guppies.remove(i);
+				break;
+			}
+			eGuppy = eGuppy->getNext();
+			i++;
+		}
+	} else if (entityType == TYPE_PIRANHA) {
+		Element<Piranha> *ePiranha = piranhas.getFirst();
+		int i = 0;
+		while (ePiranha != NULL) {
+			if (ePiranha->getInfo()->getId() == entityId) {
+				piranhas.remove(i);
+				break;
+			}
+			ePiranha = ePiranha->getNext();
+			i++;
+		}
 	}
 }
+
 bool Aquarium::isExist(int entityId, int entityType) {
 	if (entityType == TYPE_COIN) {
 		Element<Coin> *eCoin = coins.getFirst();
