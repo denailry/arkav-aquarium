@@ -29,7 +29,7 @@ private:
     growth G;
     int lastFed;
     int lastCoin;
-    Food findNearestFood(LinkedList<Food> &foods);
+    Food& findNearestFood(LinkedList<Food> &foods);
     bool isAbleToConsume(Food const& food);
 
 };

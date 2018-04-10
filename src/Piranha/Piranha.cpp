@@ -1,7 +1,7 @@
 #include "Piranha.hpp"
 #include <cmath>
 
-double distanceWith(double pos1X, double pos1Y, double pos2X, double pos2Y) {
+double distanceWithGuppy(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	double xDiff = std::abs(pos1X - pos2X);
 	double yDiff = std::abs(pos1Y - pos2Y);
 	return sqrt(xDiff*xDiff + yDiff*yDiff);
@@ -22,23 +22,23 @@ void Piranha::setLastFed(int lf){
 void Piranha::tick(LinkedList<Guppy> const& guppies, double delay){	//belum diimplementasi
 }
 
-Guppy Piranha::findNearestGuppy(LinkedList<Guppy> &guppies){
+Guppy& Piranha::findNearestGuppy(LinkedList<Guppy> &guppies){
 	Element<Guppy>* eGuppy = guppies.getFirst();
 	
-	Guppy nearestGuppy = eGuppy->getInfo();
-	double minDistance = distanceWith(
+	Guppy *nearestGuppy = eGuppy->getInfo();
+	double minDistance = distanceWithGuppy(
 		this->getX(),
 		this->getY(),
-		nearestGuppy.getX(), 
-		nearestGuppy.getY());
+		nearestGuppy->getX(), 
+		nearestGuppy->getY());
 
 	eGuppy = eGuppy->getNext();
 	while (eGuppy != NULL) {
-		double distance = distanceWith(
+		double distance = distanceWithGuppy(
 			this->getX(),
 			this->getY(),
-			eGuppy->getInfo().getX(), 
-			eGuppy->getInfo().getY());
+			eGuppy->getInfo()->getX(), 
+			eGuppy->getInfo()->getY());
 		if (distance < minDistance) {
 			minDistance = distance;
 			nearestGuppy = eGuppy->getInfo();
@@ -47,7 +47,7 @@ Guppy Piranha::findNearestGuppy(LinkedList<Guppy> &guppies){
 		eGuppy = eGuppy->getNext();
 	}
 
-	return nearestGuppy;
+	return *nearestGuppy;
 }
     
 bool Piranha::isAbleToConsume(Guppy const& guppy){

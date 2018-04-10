@@ -1,4 +1,11 @@
 #include "Guppy.hpp"
+#include <cmath>
+
+double distanceWithFood(double pos1X, double pos1Y, double pos2X, double pos2Y) {
+	double xDiff = std::abs(pos1X - pos2X);
+	double yDiff = std::abs(pos1Y - pos2Y);
+	return sqrt(xDiff*xDiff + yDiff*yDiff);
+}
 
 Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_GUPPY) {
 	setC(15);
@@ -45,23 +52,23 @@ void Guppy::tick(LinkedList<Food> const& foods, double delay){	//belum diimpleme
 	
 }
 
-Food findNearestFood(LinkedList<Food> const& foods){
+Food& Guppy::findNearestFood(LinkedList<Food> &foods){
 	Element<Food>* eFood = foods.getFirst();
 	
-	Food nearestFood = eFood->getInfo();
-	double minDistance = distanceWith(
+	Food *nearestFood = eFood->getInfo();
+	double minDistance = distanceWithFood(
 		this->getX(),
 		this->getY(),
-		nearestFood.getX(), 
-		nearestFood.getY());
+		nearestFood->getX(), 
+		nearestFood->getY());
 
 	eFood = eFood->getNext();
 	while (eFood != NULL) {
-		double distance = distanceWith(
+		double distance = distanceWithFood(
 			this->getX(),
 			this->getY(),
-			eFood->getInfo().getX(), 
-			eFood->getInfo().getY());
+			eFood->getInfo()->getX(), 
+			eFood->getInfo()->getY());
 		if (distance < minDistance) {
 			minDistance = distance;
 			nearestFood = eFood->getInfo();
@@ -70,14 +77,14 @@ Food findNearestFood(LinkedList<Food> const& foods){
 		eFood = eFood->getNext();
 	}
 
-	return nearestFood;
+	return *nearestFood;
 }
 
-bool isAbleToConsume(Food const& food){ 
+bool Guppy::isAbleToConsume(Food const& food){ 
 	return (this->getSpace())->isExist(food.getId()) && (
-		(coin.getX() > this->getLeft()) && 
-		(coin.getX() < this->getRight()) &&
-		(coin.getY() > this->getTop()) && 
-		(coin.getY() < this->getBottom())
+		(food.getX() > this->getLeft()) && 
+		(food.getX() < this->getRight()) &&
+		(food.getY() > this->getTop()) && 
+		(food.getY() < this->getBottom())
 	);
 }
