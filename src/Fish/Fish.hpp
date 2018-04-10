@@ -18,7 +18,7 @@ private:
 public:
 	// Constructor
 	// Need position x and y
-	Fish(int x, int y, int width, int height, char type);
+	Fish(double x, double y, double width, double height, char type);
 	
 	void setDirRight(bool);
 	void setHunger(bool);
