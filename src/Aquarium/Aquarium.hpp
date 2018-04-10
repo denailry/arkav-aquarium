@@ -22,8 +22,9 @@
 class Aquarium : protected Tick, public Space {
 private:
 	int width;
-	int height;
-	LinkedList<Entity> **screen;
+	int top;
+	int bottom;
+	// LinkedList<Entity> **screen;
 	LinkedList<Coin> coins;
 	LinkedList<Food> foods;
 	LinkedList<Guppy> guppies;
@@ -31,7 +32,10 @@ private:
 	Snail* snail;
 
 	// Collected score from collected coins
-	int score;
+	int money;
+
+	// To generate id for object which enter the aquarium
+	int objectCounter;
 
 	// Tick for each entities
 	// Each of these functions call tick function in each derived Entities
@@ -48,16 +52,16 @@ public:
 	// Constructor
 	// Initialize screen
 	// Initialize score
-	Aquarium(int width, int height);
+	Aquarium(int width, int top, int bottom);
 
 	// Copy Constructor
-	Aquarium(Aquarium const &aquarium);
+	// Aquarium(Aquarium const &aquarium);
 
 	// Destructor
 	~Aquarium();
 
 	// Print screen to show position of every entities
-	void printScreen();
+	// void printScreen();
 
 	// Adder
 	// First add each entity to screen
@@ -74,6 +78,9 @@ public:
 	LinkedList<Guppy>& getGuppies();
 	LinkedList<Piranha>& getPiranhas();
 	Snail& getSnail();
+	int getWidth();
+	int getTop();
+	int getBottom();
 
 	void tick(double delay);
 

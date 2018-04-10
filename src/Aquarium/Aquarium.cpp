@@ -1,28 +1,34 @@
 #include "Aquarium.hpp"
+#include <iostream>
 
-Aquarium::Aquarium(int width, int height) {
-	this->screen = new LinkedList<Entity>*[height];
-	for (int i = 0; i < height; ++i) {
-		screen[i] = new LinkedList<Entity>[width];
-	}
+Aquarium::Aquarium(int width, int top, int bottom) {
+	// this->screen = new LinkedList<Entity>*[height];
+	// for (int i = 0; i < height; ++i) {
+	// 	screen[i] = new LinkedList<Entity>[width];
+	// }
 	this->width = width;
-	this->height = height;
+	this->top = top;
+	this->bottom = bottom;
+	this->money = 0;
+	this->objectCounter = 0;
 }
 
-Aquarium::Aquarium(Aquarium const &aquarium) {
-	this->screen = new LinkedList<Entity>*[aquarium.height];
-	for (int i = 0; i < height; ++i) {
-		screen[i] = new LinkedList<Entity>[width];
-	}
-	this->width = width;
-	this->height = height;
-}
+// Aquarium::Aquarium(Aquarium const &aquarium) {
+// 	// this->screen = new LinkedList<Entity>*[aquarium.height];
+// 	// for (int i = 0; i < height; ++i) {
+// 	// 	screen[i] = new LinkedList<Entity>[width];
+// 	// }
+// 	// this->width = aquarium.;
+// 	// this->height = top;
+// 	// this->height = 
+// 	// this->money = 0;
+// }
 
 Aquarium::~Aquarium() {
-	for (int i = 0; i < this->height; ++i) {
-		delete screen[i];
-	}
-	delete screen;
+	// for (int i = 0; i < this->height; ++i) {
+	// 	delete screen[i];
+	// }
+	// delete screen;
 }
 
 void Aquarium::tickCoins(double delay) {
@@ -42,9 +48,10 @@ void Aquarium::tickFoods(double delay) {
 }
 
 void Aquarium::tickGuppies(double delay) {
+	LinkedList<Coin> newCoins; 
 	Element<Guppy> *eGuppy = guppies.getFirst();
 	while (eGuppy != NULL) {
-		eGuppy->getInfo()->tick(foods, delay);
+		eGuppy->getInfo()->tick(foods, newCoins, delay);
 		eGuppy = eGuppy->getNext();
 	}
 }
@@ -61,28 +68,36 @@ void Aquarium::tickSnail(double delay) {
 	this->snail->tick(coins, delay);
 }
 
-void Aquarium::printScreen() {
-	return;
-}
+// void Aquarium::printScreen() {
+// 	return;
+// }
 
 void Aquarium::addCoin(Coin *coin) {
 	coins.add(coin);
 	coin->setSpace(this);
+	coin->setId(this->objectCounter);
+	this->objectCounter++;
 }
 
 void Aquarium::addFood(Food *food) {
 	foods.add(food);
 	food->setSpace(this);
+	food->setId(this->objectCounter);
+	this->objectCounter++;
 }
 
 void Aquarium::addGuppy(Guppy *guppy) {
 	guppies.add(guppy);
 	guppy->setSpace(this);
+	guppy->setId(this->objectCounter);
+	this->objectCounter++;
 }
 
 void Aquarium::addPiranha(Piranha *piranha) {
 	piranhas.add(piranha);
 	piranha->setSpace(this);
+	piranha->setId(this->objectCounter);
+	this->objectCounter++;
 }
 
 bool Aquarium::addToScreen(Entity &entity) {
@@ -92,6 +107,8 @@ bool Aquarium::addToScreen(Entity &entity) {
 void Aquarium::setSnail(Snail *snail) {
 	this->snail = snail;
 	this->snail->setSpace(this);
+	this->snail->setId(this->objectCounter);
+	this->objectCounter++;
 }
 
 LinkedList<Coin>& Aquarium::getCoins() {
@@ -114,6 +131,16 @@ Snail& Aquarium::getSnail() {
 	return *(this->snail);
 }
 
+int Aquarium::getWidth() {
+	return this->width;
+}
+int Aquarium::getTop() {
+	return this->top;
+}
+int Aquarium::getBottom() {
+	return this->bottom;
+}
+
 void Aquarium::tick(double delay) {	
 	tickCoins(delay);
 	tickFoods(delay);
@@ -123,14 +150,15 @@ void Aquarium::tick(double delay) {
 }
 
 bool Aquarium::moveTo(int entityId, int entityType, double newX, double newY) {
-	return (newX > 0 && newX < width && newY > 0 && newY < height);
+	return (newX > 0 && newX < width && newY > this->top && newY < this->bottom);
 }
 void Aquarium::remove(int entityId, int entityType) {
 	if (entityType == TYPE_COIN) {
 		Element<Coin> *eCoin = coins.getFirst();
 		int i = 0;
 		while (eCoin != NULL) {
-			if (eCoin->getInfo()->getId() == entityId) {\
+			if (eCoin->getInfo()->getId() == entityId) {
+				this->money += eCoin->getInfo()->getValue();
 				coins.remove(i);
 				break;
 			}

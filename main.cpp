@@ -11,10 +11,18 @@ const double speed = 50;
 // Posisi ikan
 double cy = SCREEN_HEIGHT / 2;
 double cx = SCREEN_WIDTH / 2;
+double AQUARIUM_HEIGHT = SCREEN_HEIGHT;
 
 Aquarium& initialization() {
-    Aquarium *aquarium = new Aquarium(SCREEN_WIDTH, SCREEN_HEIGHT);
-    SDL_Surface* imageLoader = loadSurface("snail-small-left.png");
+    SDL_Surface* imageLoader;
+
+    // Counting AQUARIUM_HEIGHT
+    imageLoader = loadSurface("shop-case.png");
+    AQUARIUM_HEIGHT = AQUARIUM_HEIGHT - imageLoader->h;
+
+    // INITIALIZE AQUARIUM OBJECT
+    Aquarium *aquarium = new Aquarium(SCREEN_WIDTH, imageLoader->h, SCREEN_HEIGHT);
+    imageLoader = loadSurface("snail-small-left.png");
     srand(time(NULL));
     Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(imageLoader->h/2), imageLoader->w, imageLoader->h);
     aquarium->setSnail(snail);
@@ -24,10 +32,12 @@ Aquarium& initialization() {
 void updateFrame(Aquarium &aquarium, double sec_since_last) {
     SDL_Surface* imageLoader;
 
+    // UPDATE SNAIL
     imageLoader = loadSurface(aquarium.getSnail().getImage());
     aquarium.getSnail().setRadX(imageLoader->w/2);
     aquarium.getSnail().setRadY(imageLoader->h/2);
 
+    // UPDATE COIN
     Element<Coin> *eCoin = aquarium.getCoins().getFirst();
     while (eCoin != NULL) {
         imageLoader = loadSurface(eCoin->getInfo()->getImage());
@@ -41,10 +51,28 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
 void updateScreen(Aquarium &aquarium) {
     // draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
     // draw_text(fps_text, 18, 10, 30, 0, 0, 0);
+    SDL_Surface* imageLoader;
 
-    // Gambar ikan di posisi yang tepat.
     clear_screen();
+
+    // SCREEN ACCESSORIES
+    const int margin = 10;
+    int distanceFromLeft = 0;
     draw_image("bg.jpg", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    imageLoader = loadSurface("shop-case.png");
+    draw_image("shop-case.png", SCREEN_WIDTH / 2, imageLoader->h/2);
+    imageLoader = loadSurface("shop-icon-guppy.png");
+    draw_image("shop-icon-guppy.png", distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
+    distanceFromLeft += imageLoader->w + margin;
+    draw_image("shop-icon-piranha.png", distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
+    distanceFromLeft += imageLoader->w + margin;
+    draw_image("shop-icon-telur-1.png", distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
+    distanceFromLeft += imageLoader->w + margin;
+    draw_image("shop-icon-telur-2.png", distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
+    distanceFromLeft += imageLoader->w + margin;
+    draw_image("shop-icon-telur-3.png", distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
+    distanceFromLeft += imageLoader->w + margin;
+
     draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
     draw_image("ikan.png", cx, cy);
     Element<Coin> *eCoin = aquarium.getCoins().getFirst();
@@ -108,7 +136,7 @@ int main( int argc, char* args[] )
             case SDLK_r:
                 {
                     SDL_Surface* imageLoader = loadSurface("koin-mahal.png");
-                    aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, 0+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
+                    aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
                 }
                 break;
             // x untuk keluar

@@ -4,6 +4,7 @@
 #include "../Fish/Fish.hpp"
 #include "../LinkedList/LinkedList.hpp"
 #include "../Food/Food.hpp"
+#include "../Coin/Coin.hpp"
 
 enum growth : int {small=1,medium=2,large=3};
 
@@ -22,7 +23,7 @@ public:
     void setLastFed(int);
     void setLastCoin(int);
     //Service
-    void tick(LinkedList<Food> const& foods, double delay);
+    void tick(LinkedList<Food> const& foods, LinkedList<Coin> &newCoins, double delay);
 private:
     /* Atribut untuk guppy (boleh ditambah kalau belum lengkap): */
     int C; // Waktu periode ikan mengeluarkan koin
