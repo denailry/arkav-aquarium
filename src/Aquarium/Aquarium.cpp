@@ -27,24 +27,16 @@ Aquarium::~Aquarium() {
 
 void Aquarium::tickCoins(double delay) {
 	Element<Coin> *eCoin = coins.getFirst();
-	if (eCoin != NULL) {
-		do {
-			// eCoin->getInfo().tick(delay);
-			if (eCoin->hasNext()) {
-				eCoin = eCoin->getNext();
-			}
-		} while (eCoin->hasNext());
+	while (eCoin != NULL) {
+		eCoin->getInfo()->tick(delay);
+		eCoin = eCoin->getNext();
 	}
-	// while (eCoin != NULL) {
-	// 	eCoin->getInfo().tick(delay);
-	// 	eCoin = eCoin->getNext();
-	// }
 }
 
 void Aquarium::tickFoods(double delay) {
 	Element<Food> *eFood = foods.getFirst();
 	while (eFood != NULL) {
-		eFood->getInfo().tick(delay);
+		eFood->getInfo()->tick(delay);
 		eFood = eFood->getNext();
 	}
 }
@@ -52,7 +44,7 @@ void Aquarium::tickFoods(double delay) {
 void Aquarium::tickGuppies(double delay) {
 	Element<Guppy> *eGuppy = guppies.getFirst();
 	while (eGuppy != NULL) {
-		eGuppy->getInfo().tick(foods, delay);
+		eGuppy->getInfo()->tick(foods, delay);
 		eGuppy = eGuppy->getNext();
 	}
 }
@@ -60,7 +52,7 @@ void Aquarium::tickGuppies(double delay) {
 void Aquarium::tickPiranhas(double delay) {
 	Element<Piranha> *ePiranha = piranhas.getFirst();
 	while (ePiranha != NULL) {
-		ePiranha->getInfo().tick(guppies, delay);
+		ePiranha->getInfo()->tick(guppies, delay);
 		ePiranha = ePiranha->getNext();
 	}
 }

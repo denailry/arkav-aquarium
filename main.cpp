@@ -68,8 +68,7 @@ int main( int argc, char* args[] )
             // r untuk reset
             case SDLK_r:
                 {
-                    std::cout << "CLICKED" << std::endl;
-                    imageLoader = loadSurface("coin-gold.png");
+                    imageLoader = loadSurface("koin-mahal.png");
                     aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, 0+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
                 }
                 // cy = SCREEN_HEIGHT / 2;
@@ -89,35 +88,13 @@ int main( int argc, char* args[] )
             aquarium.getSnail().setRadX(imageLoader->w/2);
             aquarium.getSnail().setRadY(imageLoader->h/2);
 
-            int test = 0;
-            int tast = 0;
             Element<Coin> *eCoin = aquarium.getCoins().getFirst();
-            if (eCoin != NULL) {
-                std::cout << "IN LOOP" << std::endl;
-                do {
-                    tast++;
-                    std::cout << tast << std::endl;
-                    // imageLoader = loadSurface(eCoin->getInfo().getImage());
-                    // eCoin->getInfo().setRadX(imageLoader->w/2);
-                    // eCoin->getInfo().setRadY(imageLoader->h/2);
-                    // if (eCoin->getNext() == NULL) {
-                    //     break;
-                    // }
-                    // eCoin = eCoin->getNext();
-                    if (eCoin->hasNext()) {
-                        try {
-                            eCoin = eCoin->getNext();
-                        } catch (const std::exception& e) {
-                            std::cout << "Something wrong with getNext" << std::endl;
-                            break;
-                        }
-                    }
-                    std::cout << test << std::endl;
-                    test++;
-                } while (eCoin->hasNext());
-                std::cout << "OUT LOOP" << std::endl;
+            while (eCoin != NULL) {
+                imageLoader = loadSurface(eCoin->getInfo()->getImage());
+                eCoin->getInfo()->setRadX(imageLoader->w/2);
+                eCoin->getInfo()->setRadY(imageLoader->h/2);
+                eCoin = eCoin->getNext();
             }
-            std::cout << now << std::endl;
             aquarium.tick(sec_since_last);
 
             std::ostringstream strs;
@@ -135,12 +112,12 @@ int main( int argc, char* args[] )
         // draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
         // draw_text(fps_text, 18, 10, 30, 0, 0, 0);
         draw_image("ikan.png", cx, cy);
-        // Element<Coin> *eCoin = aquarium.getCoins().getFirst();
-        // while (eCoin != NULL) {
-        //     Coin &coin = eCoin->getInfo();
-        //     draw_image(coin.getImage(), coin.getX(), coin.getY());
-        //     eCoin = eCoin->getNext();
-        // }
+        Element<Coin> *eCoin = aquarium.getCoins().getFirst();
+        while (eCoin != NULL) {
+            Coin *coin = eCoin->getInfo();
+            draw_image(coin->getImage(), coin->getX(), coin->getY());
+            eCoin = eCoin->getNext();
+        }
         update_screen();
     }
 

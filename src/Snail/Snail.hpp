@@ -16,7 +16,7 @@ private:
 	// Find nearest coin
 	// Return nearest coin
 	// Throw error if size of list of coin is zero
-	Coin findNearestCoin(LinkedList<Coin> &coins);
+	Coin& findNearestCoin(LinkedList<Coin> &coins);
 
 	// Return true if coin is able to consume (inside radius)
 	bool isAbleToConsume(Coin const& coin);
