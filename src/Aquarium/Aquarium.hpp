@@ -79,7 +79,7 @@ public:
 
 	bool moveTo(int entityId, int entityType, double newX, double newY);
 	void remove(int entityId, int entityType);
-	bool isExist(int entityId);
+	bool isExist(int entityId, int entityType);
 };
 
 #endif

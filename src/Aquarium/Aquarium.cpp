@@ -126,8 +126,28 @@ bool Aquarium::moveTo(int entityId, int entityType, double newX, double newY) {
 	return (newX > 0 && newX < width && newY > 0 && newY < height);
 }
 void Aquarium::remove(int entityId, int entityType) {
-	return;
+	if (entityType == TYPE_COIN) {
+		Element<Coin> *eCoin = coins.getFirst();
+		int i = 0;
+		while (eCoin != NULL) {
+			if (eCoin->getInfo()->getId() == entityId) {\
+				coins.remove(i);
+				break;
+			}
+			eCoin = eCoin->getNext();
+			i++;
+		}
+	}
 }
-bool Aquarium::isExist(int entityId) {
+bool Aquarium::isExist(int entityId, int entityType) {
+	if (entityType == TYPE_COIN) {
+		Element<Coin> *eCoin = coins.getFirst();
+		while (eCoin != NULL) {
+			if (eCoin->getInfo()->getId() == entityId) {
+				return true;
+			}
+			eCoin = eCoin->getNext();
+		}
+	}
 	return false;
 }

@@ -16,7 +16,7 @@ private:
 	// Find nearest coin
 	// Return nearest coin
 	// Throw error if size of list of coin is zero
-	Coin& findNearestCoin(LinkedList<Coin> &coins);
+	Coin* findNearestCoin(LinkedList<Coin> &coins);
 
 	// Return true if coin is able to consume (inside radius)
 	bool isAbleToConsume(Coin const& coin);
@@ -28,7 +28,7 @@ public:
 	// On every tick of game
 	// Get list of coins
 	// Do action corresponding with avaliable coins
-	void tick(LinkedList<Coin> const& coins, double delay);
+	void tick(LinkedList<Coin> &coins, double delay);
 };
 
 #endif

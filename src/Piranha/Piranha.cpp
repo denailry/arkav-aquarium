@@ -21,10 +21,10 @@ Guppy Piranha::findNearestGuppy(LinkedList<Guppy> const& guppies){	//belum diimp
 }
     
 bool Piranha::isAbleToConsume(Guppy const& guppy){	//belum diimplementasi
-	return (this->getSpace())->isExist(guppy.getId()) && (
-		(coin.getX() > this->getLeft()) && 
-		(coin.getX() < this->getRight()) &&
-		(coin.getY() > this->getTop()) && 
-		(coin.getY() < this->getBottom())
+	return (this->getSpace())->isExist(guppy.getId(), TYPE_GUPPY) && (
+		(guppy.getX() > this->getLeft()) && 
+		(guppy.getX() < this->getRight()) &&
+		(guppy.getY() > this->getTop()) && 
+		(guppy.getY() < this->getBottom())
 	);
 }

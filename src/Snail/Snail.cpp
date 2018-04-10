@@ -2,10 +2,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
-
-double DIRECTION[2];
-int DIR_INDEX;
-std::string IMAGE[2];
+#include <iostream>
 
 double distanceWith(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	double xDiff = std::abs(pos1X - pos2X);
@@ -13,21 +10,20 @@ double distanceWith(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	return sqrt(xDiff*xDiff + yDiff*yDiff);
 }
 
+bool isAlignX(Entity &aligner, Entity &aligned) {
+	return (aligned.getX() > aligner.getLeft() && aligned.getX() < aligner.getRight());
+}
+
 Snail::Snail(double x, double y, double width, double height) : Entity(x, y, width, height, TYPE_SNAIL) {
-	srand(time(NULL));
-	DIRECTION[0] = 0;
-	DIRECTION[1] = atan(1)*4;
-	IMAGE[0] = "snail-small-right.png";
-	IMAGE[1] = "snail-small-left.png";
-	DIR_INDEX = rand() % 2;
-	this->setDirection(DIRECTION[DIR_INDEX]);
-	this->setImage(IMAGE[DIR_INDEX]);
+	this->setImage("snail-small-right.png");
 	return;	
 }
 
-Coin& Snail::findNearestCoin(LinkedList<Coin> &coins) {
+Coin* Snail::findNearestCoin(LinkedList<Coin> &coins) {
 	Element<Coin>* eCoin = coins.getFirst();
-	
+	if (eCoin == NULL) {
+		return NULL;
+	}
 	Coin *nearestCoin = eCoin->getInfo();
 	double minDistance = distanceWith(
 		this->getX(),
@@ -50,11 +46,11 @@ Coin& Snail::findNearestCoin(LinkedList<Coin> &coins) {
 		eCoin = eCoin->getNext();
 	}
 
-	return *nearestCoin;
+	return nearestCoin;
 }
 
 bool Snail::isAbleToConsume(Coin const& coin) {
-	return (this->getSpace())->isExist(coin.getId()) && (
+	return (this->getSpace())->isExist(coin.getId(), TYPE_COIN) && (
 		(coin.getX() > this->getLeft()) && 
 		(coin.getX() < this->getRight()) &&
 		(coin.getY() > this->getTop()) && 
@@ -62,15 +58,25 @@ bool Snail::isAbleToConsume(Coin const& coin) {
 	);
 }
 
-void Snail::tick(LinkedList<Coin> const& coins, double delay) {
-	double newX = this->getX() + 200*cos(this->getDirection())*delay;
-	double newY = this->getY() + 200*sin(this->getDirection())*delay;
-	if (this->getSpace()->moveTo(this->getId(), TYPE_SNAIL, newX, newY)) {
-		this->setX(newX);
-		this->setY(newY);
-	} else {
-		DIR_INDEX = (DIR_INDEX + 1) % 2;
-		this->setDirection(DIRECTION[DIR_INDEX]);
-		this->setImage(IMAGE[DIR_INDEX]);
+void Snail::tick(LinkedList<Coin> &coins, double delay) {
+	Coin *coin = findNearestCoin(coins);
+	if (coin != NULL) {
+		this->setDirection(atan2(0, coin->getX()-this->getX()));
+		if (this->getDirection() < 1) {
+			this->setImage("snail-small-right.png");
+		} else {
+			this->setImage("snail-small-left.png");
+		}
+		if (!isAlignX(*this, *coin)) {
+			double newX = this->getX() + 200*cos(this->getDirection())*delay;
+			double newY = this->getY() + 200*sin(this->getDirection())*delay;
+			if (this->getSpace()->moveTo(this->getId(), TYPE_SNAIL, newX, newY)) {
+				this->setX(newX);
+				this->setY(newY);
+			}
+		}
+		if (this->isAbleToConsume(*coin)) {
+			this->getSpace()->remove(coin->getId(), TYPE_COIN);
+		}
 	}
 }

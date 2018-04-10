@@ -17,6 +17,30 @@ class LinkedList {
 			return first == NULL;
 		}
 
+		bool remove(int index) {
+			if (index < 0 || isEmpty()) {
+				return false;
+			} else if (index == 0) {
+				Element<Type> *oldFirst = this->first;
+				this->first = this->first->getNext();
+				delete oldFirst;
+			} else {
+				index--;
+				Element<Type> *elmt = this->first;
+				while (index > 0 && elmt != NULL) {
+					elmt = elmt->getNext();
+					index--;
+				}
+				if (elmt == NULL || elmt->getNext() == NULL) {
+					return false;
+				}
+				Element<Type> *oldElmt = elmt->getNext();
+				elmt->setNext(oldElmt->getNext());
+				delete oldElmt;
+			}
+			return true;
+		}
+
 		void add(Type *info) {
 			if (isEmpty()) {
 				this->first = new Element<Type>();

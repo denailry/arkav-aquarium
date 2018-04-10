@@ -18,7 +18,7 @@ public:
 	virtual void remove(int entityId, int entityType) = 0;
 
 	// Give Entity information about another Entity existence by its id
-	virtual bool isExist(int entityId) = 0;
+	virtual bool isExist(int entityId, int entityType) = 0;
 };
 
 #endif

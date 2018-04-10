@@ -45,16 +45,16 @@ void Guppy::tick(LinkedList<Food> const& foods, double delay){	//belum diimpleme
 	
 }
 
-Food findNearestFood(LinkedList<Food> const& foods){	//belum diimplementasi
+Food Guppy::findNearestFood(LinkedList<Food> const& foods){	//belum diimplementasi
 	Food f(1, 2, 3, 4);
 	return f;
 }
 
-bool isAbleToConsume(Food const& food){ //belum diimplementasi
-	return (this->getSpace())->isExist(food.getId()) && (
-		(coin.getX() > this->getLeft()) && 
-		(coin.getX() < this->getRight()) &&
-		(coin.getY() > this->getTop()) && 
-		(coin.getY() < this->getBottom())
+bool Guppy::isAbleToConsume(Food const& food){ //belum diimplementasi
+	return (this->getSpace())->isExist(food.getId(), TYPE_FOOD) && (
+		(food.getX() > this->getLeft()) && 
+		(food.getX() < this->getRight()) &&
+		(food.getY() > this->getTop()) && 
+		(food.getY() < this->getBottom())
 	);
 }

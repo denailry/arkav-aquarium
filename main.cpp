@@ -71,8 +71,6 @@ int main( int argc, char* args[] )
                     imageLoader = loadSurface("koin-mahal.png");
                     aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, 0+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
                 }
-                // cy = SCREEN_HEIGHT / 2;
-                // cx = SCREEN_WIDTH / 2;
                 break;
             // x untuk keluar
             case SDLK_x:
