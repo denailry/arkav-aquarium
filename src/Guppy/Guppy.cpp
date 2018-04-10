@@ -1,5 +1,8 @@
 #include "Guppy.hpp"
 #include <cmath>
+#define LAPAR 20
+#define KOIN 20
+#define MATI 20
 
 double distanceWithFood(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	double xDiff = std::abs(pos1X - pos2X);
@@ -48,8 +51,30 @@ void Guppy::setLastCoin(int lc){
 }
 
 //Service
-void Guppy::tick(LinkedList<Food> const& foods, double delay){	//belum diimplementasi
-	
+void Guppy::tick(LinkedList<Food> const& foods,LinkedList<Coin> coins, double delay, LinkedList<Coin> coins){
+	if (((this->ticktime)-lastCoin)>=KOIN){
+		lastCoin=(this->ticktime);
+		if ((this->G)==1){
+			Coin a=new Coin(this->getX(),this->getY(),20,20,50);//value untuk koin harus selalu 50 untuk guppy tahap pertama
+			a.setImage("koin-murah.png");
+			coins.Add(a);
+		}else if ((this->G)==2){
+			Coin a=new Coin(this->getX(),this->getY(),20,20,75);//value untuk koin harus selalu 75 untuk guppy tahap kedua
+			a.setImage("koin-sedang.png");
+			coins.Add(a);
+		}else if ((this->G)==3){
+			Coin a=new Coin(this->getX(),this->getY(),20,20,100);//value untuk koin harus selalu 100 untuk guppy tahap ketiga
+			a.setImage("koin-mahal.png");
+			coins.Add(a);
+		}
+	}
+	if (this->hunger){
+		if ((this->lastFed)>=LAPAR+MATI){
+			this->getSpace()->remove(this->getId(), TYPE_GUPPY);
+		}
+	}else{
+		
+	}
 }
 
 Food& Guppy::findNearestFood(LinkedList<Food> &foods){
