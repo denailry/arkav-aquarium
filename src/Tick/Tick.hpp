@@ -20,6 +20,9 @@ public:
 	// What to do for every tick of program
 	// Normally tick is doing tickTime++
 	virtual void tick(double delay) = 0;
+
+	int getTickTime();
+	void resetTickTime();
 };
 
 #endif

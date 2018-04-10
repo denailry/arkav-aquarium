@@ -17,7 +17,7 @@
 #define TYPE_PIRANHA 'p'
 #define TYPE_SNAIL 's'
 
-class Entity : protected Tick {
+class Entity : public Tick {
 private:
 	Space *space; // The space where the entity belong
 	int id; // Unique id for each entity

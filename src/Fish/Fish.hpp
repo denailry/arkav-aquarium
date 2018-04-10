@@ -11,7 +11,7 @@
 #include "../Entity/Entity.hpp"
 
 class Fish : public Entity {
-private:
+protected:
 	bool dirRight; //bernilai true jika ke arah kanan dan false jika ke arah kiri
 	bool hunger; //bernilai true apabila ikan lapar
 	
