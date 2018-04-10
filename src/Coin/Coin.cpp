@@ -12,10 +12,10 @@ int Coin::getValue(){ //mendapatkan nilai koin
 } 
 
 void Coin::tick(double delay) {
-	// double newX = this->getX() + 250*cos(this->getDirection())*delay;
-	// double newY = this->getY() + 250*sin(this->getDirection())*delay;
-	// if (this->getSpace()->moveTo(this->getId(), TYPE_SNAIL, newX, newY)) {
-	// 	this->setX(newX);
-	// 	this->setY(newY);
-	// }
+	double newX = this->getX() + 250*cos(this->getDirection())*delay;
+	double newY = this->getY() + 250*sin(this->getDirection())*delay;
+	if (this->getSpace()->moveTo(this->getId(), TYPE_SNAIL, newX, newY)) {
+		this->setX(newX);
+	 	this->setY(newY);
+	}
 }
