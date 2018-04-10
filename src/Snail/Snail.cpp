@@ -25,23 +25,23 @@ Snail::Snail(double x, double y, double width, double height) : Entity(x, y, wid
 	return;	
 }
 
-Coin Snail::findNearestCoin(LinkedList<Coin> &coins) {
+Coin& Snail::findNearestCoin(LinkedList<Coin> &coins) {
 	Element<Coin>* eCoin = coins.getFirst();
 	
-	Coin nearestCoin = eCoin->getInfo();
+	Coin *nearestCoin = eCoin->getInfo();
 	double minDistance = distanceWith(
 		this->getX(),
 		this->getY(),
-		nearestCoin.getX(), 
-		nearestCoin.getY());
+		nearestCoin->getX(), 
+		nearestCoin->getY());
 
 	eCoin = eCoin->getNext();
 	while (eCoin != NULL) {
 		double distance = distanceWith(
 			this->getX(),
 			this->getY(),
-			eCoin->getInfo().getX(), 
-			eCoin->getInfo().getY());
+			eCoin->getInfo()->getX(), 
+			eCoin->getInfo()->getY());
 		if (distance < minDistance) {
 			minDistance = distance;
 			nearestCoin = eCoin->getInfo();
@@ -50,7 +50,7 @@ Coin Snail::findNearestCoin(LinkedList<Coin> &coins) {
 		eCoin = eCoin->getNext();
 	}
 
-	return nearestCoin;
+	return *nearestCoin;
 }
 
 bool Snail::isAbleToConsume(Coin const& coin) {

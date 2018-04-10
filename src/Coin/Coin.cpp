@@ -3,8 +3,8 @@
 
 Coin::Coin(double x, double y, double width, double height, int nilai) : Item(x, y, width, height, TYPE_COIN){
 	value = nilai;
-	this->setDirection(atan(1)*4.0*3.0/2.0);
-	this->setImage("coin-gold.png");
+	this->setDirection(atan(1)*4.0/2.0);
+	this->setImage("koin-mahal.png");
 }
 
 int Coin::getValue(){ //mendapatkan nilai koin
