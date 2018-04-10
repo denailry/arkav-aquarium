@@ -3,6 +3,7 @@
 #define LAPAR 20
 #define KOIN 20
 #define MATI 20
+#define NGEGEDEIN 5
 
 double distanceWithFood(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	double xDiff = std::abs(pos1X - pos2X);
@@ -52,6 +53,7 @@ void Guppy::setLastCoin(int lc){
 
 //Service
 void Guppy::tick(LinkedList<Food> const& foods,LinkedList<Coin> coins, double delay, LinkedList<Coin> coins){
+	Food *food = findNearestFood(foods);
 	if (((this->ticktime)-lastCoin)>=KOIN){
 		lastCoin=(this->ticktime);
 		if ((this->G)==1){
@@ -71,6 +73,14 @@ void Guppy::tick(LinkedList<Food> const& foods,LinkedList<Coin> coins, double de
 	if (this->hunger){
 		if ((this->lastFed)>=LAPAR+MATI){
 			this->getSpace()->remove(this->getId(), TYPE_GUPPY);
+		}
+		else{
+			if (this->isAbleToConsume(*food)){
+				this->getSpace()->remove(food->getId(), TYPE_FOOD);
+				setLastFed(this->tickTime);
+				setHunger(false);
+				
+			}
 		}
 	}else{
 		
