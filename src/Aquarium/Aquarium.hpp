@@ -77,7 +77,7 @@ public:
 
 	void tick(double delay);
 
-	bool moveTo(int entityId, int entityType, int newX, int newY);
+	bool moveTo(int entityId, int entityType, double newX, double newY);
 	void remove(int entityId, int entityType);
 	bool isExist(int entityId);
 };

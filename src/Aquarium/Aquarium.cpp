@@ -59,6 +59,7 @@ bool Aquarium::addToScreen(Entity &entity) {
 
 void Aquarium::setSnail(Snail *snail) {
 	this->snail = snail;
+	this->snail->setSpace(this);
 	// addToScreen(snail);
 }
 
@@ -82,12 +83,12 @@ Snail& Aquarium::getSnail() {
 	return *(this->snail);
 }
 
-void Aquarium::tick(double delay) 
-{	return;
+void Aquarium::tick(double delay) {	
+	tickSnail(delay);
 }
 
-bool Aquarium::moveTo(int entityId, int entityType, int newX, int newY) {
-	return false;
+bool Aquarium::moveTo(int entityId, int entityType, double newX, double newY) {
+	return true;
 }
 void Aquarium::remove(int entityId, int entityType) {
 	return;

@@ -79,9 +79,9 @@ int main( int argc, char* args[] )
 
         // Update FPS setiap detik
         frames_passed++;
-        if (now - fpc_start > 1) {
-            
-            
+        if (now - fpc_start > 1.0/120.0) {
+            aquarium.tick(sec_since_last);
+
             std::ostringstream strs;
             strs << "FPS: " ;
             strs << frames_passed/(now - fpc_start);

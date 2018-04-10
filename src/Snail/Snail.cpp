@@ -49,8 +49,10 @@ bool Snail::isAbleToConsume(Coin const& coin) {
 }
 
 void Snail::tick(LinkedList<Coin> const& coins, double delay) {
-	// int newX = this->getX() + 5*cos(0)*1;
-	// int newY = y + 5*sin(0)*1;
-	// this->getSpace()->moveTo(this->getId(), this->)
-	return;
+	double newX = this->getX() + 50*cos(atan(1)*4)*delay;
+	double newY = this->getY() + 50*sin(atan(1)*4)*delay;
+	if (this->getSpace()->moveTo(this->getId(), TYPE_SNAIL, newX, newY)) {
+		this->setX(newX);
+		this->setY(newY);
+	}
 }
