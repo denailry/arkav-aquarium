@@ -2,6 +2,7 @@
 #define LINKEDLIST_HPP
 
 #include "../Element/Element.hpp"
+#include <iostream>
 
 template <class Type>
 class LinkedList {
@@ -23,24 +24,27 @@ class LinkedList {
 		{
 			return first == NULL;
 		}
-		void add(Type &X)
+		void add(Type *X)
 		{
-			Element<Type> *P = new Element<Type>(X);
-			Element<Type> *last = first;
-		    if (isEmpty())
-		    {
-				P->setNext(last);
-				last = P;
-		    }
-			else
-			{
+		    if (isEmpty()) {
+				this->first = new Element<Type>(X);;
+				this->first->setNext(NULL);
+		    } else {
+				Element<Type> *last = first;
 				while (last->getNext() != NULL)
 				{
 					last = last->getNext();
 				}
 				// last di elemen terakhir
-				P->setNext(last->getNext());
-				last->setNext(P);
+				if (last == NULL) {
+					std::cout << "WTF.... NULL???" << std::endl;
+					return;
+				}
+				std::cout << "ADDING" << std::endl;
+				last->setNext(new Element<Type>(X));
+				std::cout << "NEXT SET" << std::endl;
+				last->getNext()->setNext(NULL);
+				std::cout << "ADDED" << std::endl;
 			}
 		}
 		void remove(Type &X)

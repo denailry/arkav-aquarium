@@ -27,10 +27,18 @@ Aquarium::~Aquarium() {
 
 void Aquarium::tickCoins(double delay) {
 	Element<Coin> *eCoin = coins.getFirst();
-	while (eCoin != NULL) {
-		eCoin->getInfo().tick(delay);
-		eCoin = eCoin->getNext();
+	if (eCoin != NULL) {
+		do {
+			// eCoin->getInfo().tick(delay);
+			if (eCoin->hasNext()) {
+				eCoin = eCoin->getNext();
+			}
+		} while (eCoin->hasNext());
 	}
+	// while (eCoin != NULL) {
+	// 	eCoin->getInfo().tick(delay);
+	// 	eCoin = eCoin->getNext();
+	// }
 }
 
 void Aquarium::tickFoods(double delay) {
@@ -65,24 +73,24 @@ void Aquarium::printScreen() {
 	return;
 }
 
-void Aquarium::addCoin(Coin &coin) {
+void Aquarium::addCoin(Coin *coin) {
 	coins.add(coin);
-	coin.setSpace(this);
+	coin->setSpace(this);
 }
 
-void Aquarium::addFood(Food &food) {
+void Aquarium::addFood(Food *food) {
 	foods.add(food);
-	food.setSpace(this);
+	food->setSpace(this);
 }
 
-void Aquarium::addGuppy(Guppy &guppy) {
+void Aquarium::addGuppy(Guppy *guppy) {
 	guppies.add(guppy);
-	guppy.setSpace(this);
+	guppy->setSpace(this);
 }
 
-void Aquarium::addPiranha(Piranha &piranha) {
+void Aquarium::addPiranha(Piranha *piranha) {
 	piranhas.add(piranha);
-	piranha.setSpace(this);
+	piranha->setSpace(this);
 }
 
 bool Aquarium::addToScreen(Entity &entity) {

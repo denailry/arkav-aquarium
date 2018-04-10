@@ -26,10 +26,10 @@ int main( int argc, char* args[] )
     double prevtime = time_since_start();
 
     Aquarium aquarium(SCREEN_WIDTH, SCREEN_HEIGHT);
-    SDL_Surface* imageSnail = loadSurface("snail-small-left.png");
+    SDL_Surface* imageLoader = loadSurface("snail-small-left.png");
     srand(time(NULL));
 
-    Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(imageSnail->h/2), imageSnail->w, imageSnail->h);
+    Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(imageLoader->h/2), imageLoader->w, imageLoader->h);
     aquarium.setSnail(snail);
 
     while (running) {
@@ -67,8 +67,13 @@ int main( int argc, char* args[] )
             switch (key) {
             // r untuk reset
             case SDLK_r:
-                cy = SCREEN_HEIGHT / 2;
-                cx = SCREEN_WIDTH / 2;
+                {
+                    std::cout << "CLICKED" << std::endl;
+                    imageLoader = loadSurface("coin-gold.png");
+                    aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, 0+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
+                }
+                // cy = SCREEN_HEIGHT / 2;
+                // cx = SCREEN_WIDTH / 2;
                 break;
             // x untuk keluar
             case SDLK_x:
@@ -80,10 +85,39 @@ int main( int argc, char* args[] )
         // Update FPS setiap detik
         frames_passed++;
         if (now - fpc_start > 1.0/120.0) {
-            imageSnail = loadSurface(aquarium.getSnail().getImage());
-            aquarium.getSnail().setRadX(imageSnail->w/2);
-            aquarium.getSnail().setRadY(imageSnail->h/2);
+            imageLoader = loadSurface(aquarium.getSnail().getImage());
+            aquarium.getSnail().setRadX(imageLoader->w/2);
+            aquarium.getSnail().setRadY(imageLoader->h/2);
 
+            int test = 0;
+            int tast = 0;
+            Element<Coin> *eCoin = aquarium.getCoins().getFirst();
+            if (eCoin != NULL) {
+                std::cout << "IN LOOP" << std::endl;
+                do {
+                    tast++;
+                    std::cout << tast << std::endl;
+                    // imageLoader = loadSurface(eCoin->getInfo().getImage());
+                    // eCoin->getInfo().setRadX(imageLoader->w/2);
+                    // eCoin->getInfo().setRadY(imageLoader->h/2);
+                    // if (eCoin->getNext() == NULL) {
+                    //     break;
+                    // }
+                    // eCoin = eCoin->getNext();
+                    if (eCoin->hasNext()) {
+                        try {
+                            eCoin = eCoin->getNext();
+                        } catch (const std::exception& e) {
+                            std::cout << "Something wrong with getNext" << std::endl;
+                            break;
+                        }
+                    }
+                    std::cout << test << std::endl;
+                    test++;
+                } while (eCoin->hasNext());
+                std::cout << "OUT LOOP" << std::endl;
+            }
+            std::cout << now << std::endl;
             aquarium.tick(sec_since_last);
 
             std::ostringstream strs;
@@ -96,11 +130,17 @@ int main( int argc, char* args[] )
 
         // Gambar ikan di posisi yang tepat.
         clear_screen();
-        draw_image("bg.jpg", cx, cy);
+        draw_image("bg.jpg", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
         // draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
         // draw_text(fps_text, 18, 10, 30, 0, 0, 0);
-        // draw_image("ikan.png", cx, cy);
+        draw_image("ikan.png", cx, cy);
+        // Element<Coin> *eCoin = aquarium.getCoins().getFirst();
+        // while (eCoin != NULL) {
+        //     Coin &coin = eCoin->getInfo();
+        //     draw_image(coin.getImage(), coin.getX(), coin.getY());
+        //     eCoin = eCoin->getNext();
+        // }
         update_screen();
     }
 

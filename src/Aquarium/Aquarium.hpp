@@ -62,10 +62,10 @@ public:
 	// Adder
 	// First add each entity to screen
 	// If true then add to corresponding list
-	void addCoin(Coin &coin);
-	void addFood(Food &food);
-	void addGuppy(Guppy &guppy);
-	void addPiranha(Piranha &piranha);
+	void addCoin(Coin *coin);
+	void addFood(Food *food);
+	void addGuppy(Guppy *guppy);
+	void addPiranha(Piranha *piranha);
 	void setSnail(Snail *snail);
 
 	// Getter
