@@ -40,8 +40,14 @@ double Entity::getTop() const {
 double Entity::getBottom() const {
 	return this->y + this->radY;
 }
+double Entity::getDirection() const {
+	return this->direction;
+}
 Space* Entity::getSpace() const {
 	return this->space;
+}
+std::string Entity::getImage() const {
+	return this->image;
 }
 
 // Setter
@@ -62,4 +68,10 @@ void Entity::setRadY(double radY) {
 }
 void Entity::setSpace(Space* space) {
 	this->space = space;
+}
+void Entity::setDirection(double direction) {
+	this->direction = direction;
+}
+void Entity::setImage(std::string image) {
+	this->image = image;
 }

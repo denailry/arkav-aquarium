@@ -9,6 +9,7 @@
 
 #include "../Space/Space.hpp"
 #include "../Tick/Tick.hpp"
+#include <iostream>
 
 #define TYPE_COIN 'c'
 #define TYPE_FOOD 'f'
@@ -24,7 +25,9 @@ private:
 	double y; // Y-Position of Entity
 	double radY;
 	double radX;
+	double direction;
 	char type; // type of Entity
+	std::string image;
 public:
 	// Constructor
 	// Need position x and y
@@ -44,7 +47,9 @@ public:
 	double getLeft() const;
 	double getRight() const;
 	double getBottom() const;
+	double getDirection() const;
 	Space* getSpace() const;
+	std::string getImage() const;
 
 	// Setter
 	void setId(int id);
@@ -53,6 +58,8 @@ public:
 	void setRadX(double radX);
 	void setRadY(double radY);
 	void setSpace(Space *space);
+	void setDirection(double direction);
+	void setImage(std::string image);
 };
 
 #endif

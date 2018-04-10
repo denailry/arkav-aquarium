@@ -123,7 +123,7 @@ void Aquarium::tick(double delay) {
 }
 
 bool Aquarium::moveTo(int entityId, int entityType, double newX, double newY) {
-	return true;
+	return (newX > 0 && newX < width && newY > 0 && newY < height);
 }
 void Aquarium::remove(int entityId, int entityType) {
 	return;

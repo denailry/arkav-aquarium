@@ -26,10 +26,10 @@ int main( int argc, char* args[] )
     double prevtime = time_since_start();
 
     Aquarium aquarium(SCREEN_WIDTH, SCREEN_HEIGHT);
-    SDL_Surface* s = loadSurface("snail-small.png");
+    SDL_Surface* imageSnail = loadSurface("snail-small-left.png");
     srand(time(NULL));
 
-    Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(s->h/2), s->w, s->h);
+    Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(imageSnail->h/2), imageSnail->w, imageSnail->h);
     aquarium.setSnail(snail);
 
     while (running) {
@@ -80,6 +80,10 @@ int main( int argc, char* args[] )
         // Update FPS setiap detik
         frames_passed++;
         if (now - fpc_start > 1.0/120.0) {
+            imageSnail = loadSurface(aquarium.getSnail().getImage());
+            aquarium.getSnail().setRadX(imageSnail->w/2);
+            aquarium.getSnail().setRadY(imageSnail->h/2);
+
             aquarium.tick(sec_since_last);
 
             std::ostringstream strs;
@@ -93,7 +97,7 @@ int main( int argc, char* args[] )
         // Gambar ikan di posisi yang tepat.
         clear_screen();
         draw_image("bg.jpg", cx, cy);
-        draw_image("snail-small.png", aquarium.getSnail().getX(), aquarium.getSnail().getY());
+        draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
         // draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
         // draw_text(fps_text, 18, 10, 30, 0, 0, 0);
         // draw_image("ikan.png", cx, cy);
