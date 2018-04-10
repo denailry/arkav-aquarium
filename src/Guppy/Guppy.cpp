@@ -1,4 +1,11 @@
 #include "Guppy.hpp"
+#include <cmath>
+
+double distanceWithFood(double pos1X, double pos1Y, double pos2X, double pos2Y) {
+	double xDiff = std::abs(pos1X - pos2X);
+	double yDiff = std::abs(pos1Y - pos2Y);
+	return sqrt(xDiff*xDiff + yDiff*yDiff);
+}
 
 Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_GUPPY) {
 	setC(15);
@@ -45,9 +52,32 @@ void Guppy::tick(LinkedList<Food> const& foods, double delay){	//belum diimpleme
 	
 }
 
-Food Guppy::findNearestFood(LinkedList<Food> const& foods){	//belum diimplementasi
-	Food f(1, 2, 3, 4);
-	return f;
+Food& Guppy::findNearestFood(LinkedList<Food> &foods){
+	Element<Food>* eFood = foods.getFirst();
+	
+	Food *nearestFood = eFood->getInfo();
+	double minDistance = distanceWithFood(
+		this->getX(),
+		this->getY(),
+		nearestFood->getX(), 
+		nearestFood->getY());
+
+	eFood = eFood->getNext();
+	while (eFood != NULL) {
+		double distance = distanceWithFood(
+			this->getX(),
+			this->getY(),
+			eFood->getInfo()->getX(), 
+			eFood->getInfo()->getY());
+		if (distance < minDistance) {
+			minDistance = distance;
+			nearestFood = eFood->getInfo();
+		}
+
+		eFood = eFood->getNext();
+	}
+
+	return *nearestFood;
 }
 
 bool Guppy::isAbleToConsume(Food const& food){ //belum diimplementasi

@@ -16,6 +16,6 @@ void Coin::tick(double delay) {
 	double newY = this->getY() + 250*sin(this->getDirection())*delay;
 	if (this->getSpace()->moveTo(this->getId(), TYPE_SNAIL, newX, newY)) {
 		this->setX(newX);
-		this->setY(newY);
+	 	this->setY(newY);
 	}
 }
