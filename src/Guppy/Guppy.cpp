@@ -42,7 +42,7 @@ void Guppy::setLastCoin(int lc){
 
 //Service
 void Guppy::tick(LinkedList<Food> const& foods, double delay){	//belum diimplementasi
-
+	
 }
 
 Food findNearestFood(LinkedList<Food> const& foods){	//belum diimplementasi
@@ -51,5 +51,10 @@ Food findNearestFood(LinkedList<Food> const& foods){	//belum diimplementasi
 }
 
 bool isAbleToConsume(Food const& food){ //belum diimplementasi
-	return true;
+	return (this->getSpace())->isExist(food.getId()) && (
+		(coin.getX() > this->getLeft()) && 
+		(coin.getX() < this->getRight()) &&
+		(coin.getY() > this->getTop()) && 
+		(coin.getY() < this->getBottom())
+	);
 }
