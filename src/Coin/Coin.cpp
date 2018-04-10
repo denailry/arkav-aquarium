@@ -1,6 +1,6 @@
 #include "Coin.hpp"
 
-Coin::Coin(int x, int y, int nilai) : Item(x,y,TYPE_COIN){
+Coin::Coin(int x, int y, int width, int height, int nilai) : Item(x, y, width, height, TYPE_COIN){
 	value = nilai;
 }
 

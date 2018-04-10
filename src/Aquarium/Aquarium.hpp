@@ -28,7 +28,7 @@ private:
 	LinkedList<Food> foods;
 	LinkedList<Guppy> guppies;
 	LinkedList<Piranha> piranhas;
-	Snail snail;
+	Snail* snail;
 
 	// Collected score from collected coins
 	int score;
@@ -43,7 +43,7 @@ private:
 	void tickSnail();
 
 	// Add Entity to screen
-	bool addToScreen(Entity& entity);
+	bool addToScreen(Entity &entity);
 public:
 	// Constructor
 	// Initialize screen
@@ -62,30 +62,24 @@ public:
 	// Adder
 	// First add each entity to screen
 	// If true then add to corresponding list
-	void addCoin(Coin const &coin);
-	void addFood(Food const &food);
-	void addGuppy(Guppy const& guppy);
-	void addPiranha(Piranha const& piranha);
-	void setSnail(Snail const& snail);
+	void addCoin(Coin &coin);
+	void addFood(Food &food);
+	void addGuppy(Guppy &guppy);
+	void addPiranha(Piranha &piranha);
+	void setSnail(Snail *snail);
 
 	// Getter
-	LinkedList<Coin> getCoins() const;
-	LinkedList<Food> getFoods() const;
-	LinkedList<Guppy> getGuppies() const;
-	LinkedList<Piranha> getPiranhas() const;
-	Snail getSnail() const;
+	LinkedList<Coin>& getCoins();
+	LinkedList<Food>& getFoods();
+	LinkedList<Guppy>& getGuppies();
+	LinkedList<Piranha>& getPiranhas();
+	Snail& getSnail();
 
-	// Implementation of Tick
-	// Call all tick functions
 	void tick();
 
-	// Implementation of Space
-	bool moveTo(int entityId, int entityType, int newX, int newY) {
-		return true;
-	}
-	void remove(int entityId, int entityType) {
-		return;
-	}
+	bool moveTo(int entityId, int entityType, int newX, int newY);
+	void remove(int entityId, int entityType);
+	bool isExist(int entityId);
 };
 
 #endif

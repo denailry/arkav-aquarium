@@ -1,6 +1,6 @@
 #include "Piranha.hpp"
 
-Piranha::Piranha(int x, int y) : Fish(x,y,TYPE_PIRANHA){
+Piranha::Piranha(int x, int y, int width, int height) : Fish(x, y, width, height, TYPE_PIRANHA){
 	setLastFed(this->tickTime); 
 }
 
@@ -16,7 +16,7 @@ void Piranha::tick(LinkedList<Guppy> const& guppies){	//belum diimplementasi
 }
 
 Guppy Piranha::findNearestGuppy(LinkedList<Guppy> const& guppies){	//belum diimplementasi
-	Guppy gup(3,4);
+	Guppy gup(3, 4, 3, 4);
 	return gup;
 }
     

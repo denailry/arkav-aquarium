@@ -1,6 +1,8 @@
 #include "Entity.hpp"
 
-Entity::Entity(int x, int y, char type) {
+Entity::Entity(int x, int y, int width, int height, char type) {
+	this->radX = width/2;
+	this->radY = height/2;
 	this->x = x;
 	this->y = y;
 	this->type = type;
@@ -38,20 +40,26 @@ int Entity::getTop() const {
 int Entity::getBottom() const {
 	return this->y + this->radY;
 }
+Space* Entity::getSpace() const {
+	return this->space;
+}
 
 // Setter
-void setId(int id) {
+void Entity::setId(int id) {
 	this->id = id;
 }
-void setX(int x) {
+void Entity::setX(int x) {
 	this->x = x;
 }
-void setY(int y) {
+void Entity::setY(int y) {
 	this->y = y;
 }
-void setRadX(int radX) {
+void Entity::setRadX(int radX) {
 	this->radX = radX;
 }
-void setRadY(int radY) {
+void Entity::setRadY(int radY) {
 	this->radY = radY;
+}
+void Entity::setSpace(Space* space) {
+	this->space = space;
 }

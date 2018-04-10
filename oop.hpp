@@ -24,6 +24,11 @@ void close();
 
 // ------------------------------ PENGGAMBARAN -------------------------------
 
+
+// Mengambil gambar dari path
+// Mengembalikan hasil pengambilan yang memiliki width dan height
+SDL_Surface* loadSurface(std::string path);
+
 // Menggambar suatu gambar png, jpg, bmp sehingga tengah gambar berada di
 // titik (x, y).
 // Perubahan di layar baru muncul ketika update_screen() dipanggil.

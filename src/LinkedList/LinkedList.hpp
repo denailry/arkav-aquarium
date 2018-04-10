@@ -4,79 +4,83 @@
 #include "../Element/Element.hpp"
 
 template <class Type>
-class LinkedList : public Element<Type> {
+class LinkedList {
 	public:
-		Type get(int index)
+		LinkedList() {
+			this->first = NULL;
+		}
+
+		Type& get(int index)
 		{
-			Element<Type> P = first;
+			Element<Type> *P = first;
 		    for (int i = 0; i < index; ++i)
 		    {
-		        P = P.getNext();
+		        P = P->getNext();
 		    }
-		    return P.getInfo();
+		    return P->getInfo();
 		}
 		bool isEmpty()
 		{
 			return first == NULL;
 		}
-		void add(Type X)
+		void add(Type &X)
 		{
-			Element<Type> P(X);
-			Element<Type> last = first;
+			Element<Type> *P = new Element<Type>(X);
+			Element<Type> *last = first;
 		    if (isEmpty())
 		    {
-				P.setNext(last);
+				P->setNext(last);
 				last = P;
 		    }
 			else
 			{
-				while (last.getNext() != NULL)
+				while (last->getNext() != NULL)
 				{
-					last = last.getNext();
+					last = last->getNext();
 				}
 				// last di elemen terakhir
-				P.setNext(last.getNext());
-				last.setNext(P);
+				P->setNext(last->getNext());
+				last->setNext(P);
 			}
 		}
-		void remove(Type X)
+		void remove(Type &X)
 		{
 			bool found = false;
-			Element<Type> P = first;
-			Element<Type> Prec = NULL;
+			Element<Type> *P = first;
+			Element<Type> *Prec = NULL;
 			while ((P != NULL) && !found)
 			{
-				if (P.getInfo() == X) {
+				if (P->getInfo() == X) {
 					found = true;
 				} else {
 					Prec = P;
-					P = P.getNext();
+					P = P->getNext();
 				}
 			}
 			if (found) {
 				if (P == first)
 				{
-					first = P.getNext();
+					first = P->getNext();
 				}
 				else
 				{
-					Prec.setNext(P.getNext());
+					Prec->setNext(P->getNext());
 				}
 			} else {
 				throw "Tidak ada di list";
 			}
 		}
-		int find(Type X)
+		int find(Type &X)
 		{
 			int index = 0;
 			bool found = false;
-			Element<Type> P = first;
+			Element<Type> *P = first;
 			while ((P != NULL) && !found)
 			{
-				if (P.getInfo() == X) {
+				if (P->getInfo() == X) {
 					found = true;
 				} else {
-					P = P.getNext();
+					P = P->getNext();
 					index++;
 				}
 			}
@@ -85,6 +89,9 @@ class LinkedList : public Element<Type> {
 			} else {
 				return -9999;
 			}
+		}
+		Element<Type>* getFirst() {
+			return this->first;
 		}
 	private:
 		Element<Type> *first;

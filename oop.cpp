@@ -72,21 +72,23 @@ void close()
 
 SDL_Surface* loadSurface( std::string path )
 {
-    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-    if( loadedSurface == NULL )
-    {
-        printf( "Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+    SDL_Surface* loadedSurface;
+    if (loadedSurfaces.count(path) < 1) {
+        loadedSurface = IMG_Load( path.c_str() );
+        if( loadedSurface == NULL )
+        {
+            printf( "Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+        }
+        loadedSurfaces[path] = loadedSurface;
+    } else {
+        loadedSurface = loadedSurfaces[path];
     }
 
     return loadedSurface;
 }
 
 void draw_image(std::string filename, int x, int y) {
-    if (loadedSurfaces.count(filename) < 1) {
-        loadedSurfaces[filename] = loadSurface(filename);
-    }
-
-    SDL_Surface* s = loadedSurfaces[filename];
+    SDL_Surface* s = loadSurface(filename);
 
     SDL_Rect dest;
     dest.x = x - s->w/2;

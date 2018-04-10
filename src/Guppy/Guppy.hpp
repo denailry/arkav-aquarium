@@ -11,7 +11,7 @@ class Guppy : public Fish
 {
 public:
     //ctor random + opr=
-    Guppy(int x, int y);
+    Guppy(int x, int y, int width, int height);
     //Get & set
     int getC() const;
     growth getG() const;

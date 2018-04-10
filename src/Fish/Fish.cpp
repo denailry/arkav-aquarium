@@ -1,6 +1,6 @@
 #include "Fish.hpp"
 
-Fish::Fish(int x, int y, char type) : Entity(x,y,type){
+Fish::Fish(int x, int y, int width, int height, char type) : Entity(x, y, width, height, type){
 	setDirRight(true);
 	setHunger(true);
 }

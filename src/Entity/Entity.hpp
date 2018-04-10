@@ -29,7 +29,7 @@ public:
 	// Constructor
 	// Need position x and y
 	// Need type
-	Entity(int x, int y, char type);
+	Entity(int x, int y, int width, int height, char type);
 
 	// Implementation of Tick
 	void tick();
@@ -44,6 +44,7 @@ public:
 	int getLeft() const;
 	int getRight() const;
 	int getBottom() const;
+	Space* getSpace() const;
 
 	// Setter
 	void setId(int id);
@@ -51,6 +52,7 @@ public:
 	void setY(int y);
 	void setRadX(int radX);
 	void setRadY(int radY);
+	void setSpace(Space *space);
 };
 
 #endif

@@ -1,7 +1,7 @@
-#include "Aquarium.hpp";
+#include "Aquarium.hpp"
 
 Aquarium::Aquarium(int width, int height) {
-	this->screen = new LinkedList<Entity>[height];
+	this->screen = new LinkedList<Entity>*[height];
 	for (int i = 0; i < height; ++i) {
 		screen[i] = new LinkedList<Entity>[width];
 	}
@@ -10,7 +10,7 @@ Aquarium::Aquarium(int width, int height) {
 }
 
 Aquarium::Aquarium(Aquarium const &aquarium) {
-	this->screen = new LinkedList<Entity>[aquarium.height];
+	this->screen = new LinkedList<Entity>*[aquarium.height];
 	for (int i = 0; i < height; ++i) {
 		screen[i] = new LinkedList<Entity>[width];
 	}
@@ -20,68 +20,78 @@ Aquarium::Aquarium(Aquarium const &aquarium) {
 
 Aquarium::~Aquarium() {
 	for (int i = 0; i < this->height; ++i) {
-		for (int j = 0; j < this->width; ++j) {
-			delete screen[i][j];
-		}
+		delete screen[i];
 	}
+	delete screen;
+}
+
+void Aquarium::tickSnail() {
+	// this->snail->tick(coins);
 }
 
 void Aquarium::printScreen() {
 	return;
 }
 
-void Aquarium::addCoin(Coin const &coin) {
+void Aquarium::addCoin(Coin &coin) {
 	coins.add(coin);
 	addToScreen(coin);
 }
 
-void Aquarium::addFood(Food const &food) {
+void Aquarium::addFood(Food &food) {
 	foods.add(food);
 	addToScreen(food);
 }
 
-void Aquarium::addGuppy(Guppy const& guppy) {
+void Aquarium::addGuppy(Guppy &guppy) {
 	guppies.add(guppy);
 	addToScreen(guppy);
 }
 
-void Aquarium::addPiranha(Piranha const& piranha) {
+void Aquarium::addPiranha(Piranha &piranha) {
 	piranhas.add(piranha);
 	addToScreen(piranha);
 }
 
-void Aquarium::setSnail(Snail const& snail) {
-	this->snail = snail;
-	addToScreen(snail);
+bool Aquarium::addToScreen(Entity &entity) {
+	return true;
 }
 
-LinkedList<Coin> Aquarium::getCoins() const {
+void Aquarium::setSnail(Snail *snail) {
+	this->snail = snail;
+	// addToScreen(snail);
+}
+
+LinkedList<Coin>& Aquarium::getCoins() {
 	return this->coins;
 }
 
-LinkedList<Food> Aquarium::getFoods() const {
+LinkedList<Food>& Aquarium::getFoods() {
 	return this->foods;
 }
 
-LinkedList<Guppy> Aquarium::getGuppies() const {
+LinkedList<Guppy>& Aquarium::getGuppies() {
 	return this->guppies;
 }
 
-LinkedList<Piranha> Aquarium::getPiranhas() const {
+LinkedList<Piranha>& Aquarium::getPiranhas() {
 	return this->piranhas;
 }
 
-Snail Aquarium::getSnail() const {
-	return this->snail;
+Snail& Aquarium::getSnail() {
+	return *(this->snail);
 }
 
-void Aquarium::tick() {
-	return;
+void Aquarium::tick() 
+{	return;
 }
 
 bool Aquarium::moveTo(int entityId, int entityType, int newX, int newY) {
 	return false;
 }
-void remove(int entityId, int entityType) {
+void Aquarium::remove(int entityId, int entityType) {
 	return;
+}
+bool Aquarium::isExist(int entityId) {
+	return false;
 }

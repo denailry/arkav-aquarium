@@ -16,6 +16,9 @@ public:
 
 	// Give Entity possibility to remove/consume in Space or derived class of Space
 	virtual void remove(int entityId, int entityType) = 0;
+
+	// Give Entity information about another Entity existence by its id
+	virtual bool isExist(int entityId) = 0;
 };
 
 #endif

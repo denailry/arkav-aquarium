@@ -1,6 +1,6 @@
 #include "Guppy.hpp"
 
-Guppy::Guppy(int x, int y) : Fish(x,y,TYPE_GUPPY){
+Guppy::Guppy(int x, int y, int width, int height) : Fish(x, y, width, height, TYPE_GUPPY) {
 	setC(15);
 	setG(small);
 	setLastFed(this->tickTime);
@@ -46,7 +46,7 @@ void Guppy::tick(LinkedList<Food> const& foods){	//belum diimplementasi
 }
 
 Food findNearestFood(LinkedList<Food> const& foods){	//belum diimplementasi
-	Food f(1,2);
+	Food f(1, 2, 3, 4);
 	return f;
 }
 
