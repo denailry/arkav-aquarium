@@ -75,7 +75,7 @@ public:
 	LinkedList<Piranha>& getPiranhas();
 	Snail& getSnail();
 
-	void tick();
+	void tick(int delay);
 
 	bool moveTo(int entityId, int entityType, int newX, int newY);
 	void remove(int entityId, int entityType);

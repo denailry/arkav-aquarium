@@ -28,7 +28,7 @@ public:
 	// On every tick of game
 	// Get list of coins
 	// Do action corresponding with avaliable coins
-	void tick(LinkedList<Coin> const& coins);
+	void tick(LinkedList<Coin> const& coins, int delay);
 };
 
 #endif

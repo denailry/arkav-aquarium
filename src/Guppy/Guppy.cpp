@@ -41,7 +41,7 @@ void Guppy::setLastCoin(int lc){
 }
 
 //Service
-void Guppy::tick(LinkedList<Food> const& foods){	//belum diimplementasi
+void Guppy::tick(LinkedList<Food> const& foods, int delay){	//belum diimplementasi
 
 }
 

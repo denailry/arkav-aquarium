@@ -10,7 +10,7 @@ public:
     Piranha(int x, int y, int width, int height);
     int getLastFed() const;
     void setLastFed(int);
-    void tick(LinkedList<Guppy> const& guppies);
+    void tick(LinkedList<Guppy> const& guppies, int delay);
 private:
     /* Atribut untuk piranha (boleh ditambah kalau belum lengkap): */
     int lastFed;

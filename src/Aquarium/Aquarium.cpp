@@ -82,7 +82,7 @@ Snail& Aquarium::getSnail() {
 	return *(this->snail);
 }
 
-void Aquarium::tick() 
+void Aquarium::tick(int delay) 
 {	return;
 }
 

@@ -8,7 +8,7 @@ int Coin::getValue(){ //mendapatkan nilai koin
 	return value;
 } 
 
-void Coin::tick(){
+void Coin::tick(int delay) {
 	int y = this->getY();
 	if (!(this->isAtBottom)){
 		y = y + 1;

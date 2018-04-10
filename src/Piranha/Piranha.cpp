@@ -12,7 +12,7 @@ void Piranha::setLastFed(int lf){
 	this->lastFed = lf;
 }
 
-void Piranha::tick(LinkedList<Guppy> const& guppies){	//belum diimplementasi
+void Piranha::tick(LinkedList<Guppy> const& guppies, int delay){	//belum diimplementasi
 }
 
 Guppy Piranha::findNearestGuppy(LinkedList<Guppy> const& guppies){	//belum diimplementasi

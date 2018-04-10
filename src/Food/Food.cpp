@@ -3,7 +3,7 @@
 Food::Food(int x, int y, int width, int height) : Item(x, y, width, height, TYPE_FOOD){
 }
 
-void Food::tick(){
+void Food::tick(int delay){
 	int y = this->getY();
 	if (!(this->isAtBottom)){
 		y = y + 1;
