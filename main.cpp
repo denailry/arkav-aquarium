@@ -83,7 +83,7 @@ Aquarium& initialization() {
     srand(time(NULL));
     Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(imageLoader->h/2), imageLoader->w, imageLoader->h);
     aquarium->setSnail(snail);
-    return *aquarium;
+		return *aquarium;
 }
 
 void updateFrame(Aquarium &aquarium, double sec_since_last) {
@@ -158,12 +158,14 @@ void updateScreen(Aquarium &aquarium) {
         draw_image(coin->getImage(), coin->getX(), coin->getY());
         eCoin = eCoin->getNext();
     }
+
     Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
     while (eGuppy != NULL) {
         Guppy *guppy = eGuppy->getInfo();
         draw_image(guppy->getImage(), guppy->getX(), guppy->getY());
         eGuppy = eGuppy->getNext();
     }
+
     Element<Piranha> *ePiranha = aquarium.getPiranhas().getFirst();
     while (ePiranha != NULL) {
         Piranha *piranha = ePiranha->getInfo();
@@ -176,6 +178,7 @@ void updateScreen(Aquarium &aquarium) {
         draw_image(food->getImage(), food->getX(), food->getY());
         eFood = eFood->getNext();
     }
+
     update_screen();
 }
 
@@ -203,7 +206,6 @@ int main( int argc, char* args[] )
         if (quit_pressed()) {
             running = false;
         }
-
         // Gerakkan ikan selama tombol panah ditekan
         // Kecepatan dikalikan dengan perbedaan waktu supaya kecepatan ikan
         // konstan pada komputer yang berbeda.
@@ -223,7 +225,7 @@ int main( int argc, char* args[] )
                 break;
             }
         }
-
+        
         // Proses masukan yang bersifat "tombol"
         for (auto key : get_tapped_keys()) {
             switch (key) {

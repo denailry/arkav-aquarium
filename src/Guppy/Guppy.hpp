@@ -28,11 +28,11 @@ private:
     /* Atribut untuk guppy (boleh ditambah kalau belum lengkap): */
     int C; // Waktu periode ikan mengeluarkan koin
     growth G;
-	int growthCounter;
+		int growthCounter; //baru nih, masukin ke perubahan
     int lastFed;
     int lastCoin;
-	int lastDrift;
-	int driftLength;
+		int lastDrift; //baru nih
+		int driftLength; //baru nih 
     Food* findNearestFood(LinkedList<Food> &foods);
     bool isAbleToConsume(Food const& food);
 

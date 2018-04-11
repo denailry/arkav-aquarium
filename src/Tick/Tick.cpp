@@ -1,5 +1,5 @@
 #include "Tick.hpp"
-#include <cmath>
+#include <stdlib.h>
 
 Tick::Tick() {
 	this->tickTime = 0;

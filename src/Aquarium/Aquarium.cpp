@@ -48,10 +48,9 @@ void Aquarium::tickFoods(double delay) {
 }
 
 void Aquarium::tickGuppies(double delay) {
-	LinkedList<Coin> newCoins; 
 	Element<Guppy> *eGuppy = guppies.getFirst();
 	while (eGuppy != NULL) {
-		eGuppy->getInfo()->tick(foods, newCoins, delay);
+		eGuppy->getInfo()->tick(foods, coins, delay);
 		eGuppy = eGuppy->getNext();
 	}
 }
