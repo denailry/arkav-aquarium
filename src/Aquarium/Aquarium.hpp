@@ -82,6 +82,9 @@ public:
 	int getTop();
 	int getBottom();
 
+	// Buy something
+	bool buy(int price);
+
 	void tick(double delay);
 
 	bool moveTo(int entityId, int entityType, double newX, double newY);
