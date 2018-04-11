@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-#define LAPAR 200
+#define LAPAR 1000
 #define KOIN 640
 #define MATI 2000
 #define NGEGEDEIN 5
