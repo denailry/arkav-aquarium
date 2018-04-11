@@ -72,7 +72,7 @@ void close()
 
 SDL_Surface* loadSurface( std::string path )
 {
-    SDL_Surface* loadedSurface;
+    SDL_Surface* loadedSurface = NULL;
     if (loadedSurfaces.count(path) < 1) {
         loadedSurface = IMG_Load( path.c_str() );
         if( loadedSurface == NULL )
@@ -82,6 +82,10 @@ SDL_Surface* loadSurface( std::string path )
         loadedSurfaces[path] = loadedSurface;
     } else {
         loadedSurface = loadedSurfaces[path];
+    }
+
+    if (loadedSurface == NULL) {
+        loadedSurface = loadSurface("unknown.png");
     }
 
     return loadedSurface;

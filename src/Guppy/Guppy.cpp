@@ -53,38 +53,38 @@ void Guppy::setLastCoin(int lc){
 
 //Service
 void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay){
-	Food *food = findNearestFood(foods);
-	if (((this->getTickTime())-lastCoin)>=KOIN){
-		lastCoin=(this->getTickTime());
-		if ((this->G)==1){
-			Coin *a = new Coin(this->getX(),this->getY(),20,20,50);//value untuk koin harus selalu 50 untuk guppy tahap pertama
-			a->setImage("koin-murah.png");
-			coins.add(a);
-		}else if ((this->G)==2){
-			Coin *a = new Coin(this->getX(),this->getY(),20,20,75);//value untuk koin harus selalu 75 untuk guppy tahap kedua
-			a->setImage("koin-sedang.png");
-			coins.add(a);
-		}else if ((this->G)==3){
-			Coin *a = new Coin(this->getX(),this->getY(),20,20,100);//value untuk koin harus selalu 100 untuk guppy tahap ketiga
-			a->setImage("koin-mahal.png");
-			coins.add(a);
-		}
-	}
-	if (this->hunger){
-		if ((this->lastFed)>=LAPAR+MATI){
-			this->getSpace()->remove(this->getId(), TYPE_GUPPY);
-		}
-		else{
-			if (this->isAbleToConsume(*food)){
-				this->getSpace()->remove(food->getId(), TYPE_FOOD);
-				setLastFed(this->tickTime);
-				setHunger(false);
+	// Food *food = findNearestFood(foods);
+	// if (((this->getTickTime())-lastCoin)>=KOIN){
+	// 	lastCoin=(this->getTickTime());
+	// 	if ((this->G)==1){
+	// 		Coin *a = new Coin(this->getX(),this->getY(),20,20,50);//value untuk koin harus selalu 50 untuk guppy tahap pertama
+	// 		a->setImage("koin-murah.png");
+	// 		coins.add(a);
+	// 	}else if ((this->G)==2){
+	// 		Coin *a = new Coin(this->getX(),this->getY(),20,20,75);//value untuk koin harus selalu 75 untuk guppy tahap kedua
+	// 		a->setImage("koin-sedang.png");
+	// 		coins.add(a);
+	// 	}else if ((this->G)==3){
+	// 		Coin *a = new Coin(this->getX(),this->getY(),20,20,100);//value untuk koin harus selalu 100 untuk guppy tahap ketiga
+	// 		a->setImage("koin-mahal.png");
+	// 		coins.add(a);
+	// 	}
+	// }
+	// if (this->hunger){
+	// 	if ((this->lastFed)>=LAPAR+MATI){
+	// 		this->getSpace()->remove(this->getId(), TYPE_GUPPY);
+	// 	}
+	// 	else{
+	// 		if (this->isAbleToConsume(*food)){
+	// 			this->getSpace()->remove(food->getId(), TYPE_FOOD);
+	// 			setLastFed(this->tickTime);
+	// 			setHunger(false);
 				
-			}
-		}
-	}else{
+	// 		}
+	// 	}
+	// }else{
 		
-	}
+	// }
 }
 
 Food* Guppy::findNearestFood(LinkedList<Food> &foods){
