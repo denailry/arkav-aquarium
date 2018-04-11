@@ -95,12 +95,12 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &newCoins, double del
 			cout << 4 << endl;
 			Coin *a = new Coin(this->getX(),this->getY(),20,20,75);//value untuk koin harus selalu 75 untuk guppy tahap kedua, nanti bisa diubah kalo perlu
 			a->setImage("koin-sedang.png");
-			//coins.add(a);
+			newCoins.add(a);
 		}else if ((this->G)==3){
 			cout << 5 << endl;
 			Coin *a = new Coin(this->getX(),this->getY(),20,20,100);//value untuk koin harus selalu 100 untuk guppy tahap ketiga, nanti bisa diubah kalo perlu
 			a->setImage("koin-mahal.png");
-			//coins.add(a);
+			newCoins.add(a);
 		}
 	}
 	
@@ -221,9 +221,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &newCoins, double del
 }
 
 Food* Guppy::findNearestFood(LinkedList<Food> &foods){
-	cout << "a" << endl;
 	Element<Food>* eFood = foods.getFirst();
-	cout << "b" << endl;
 	if (eFood != NULL){
 		Food *nearestFood = eFood->getInfo();
 		double minDistance = distanceWithFood(
@@ -231,10 +229,8 @@ Food* Guppy::findNearestFood(LinkedList<Food> &foods){
 			this->getY(),
 			nearestFood->getX(), 
 			nearestFood->getY());
-		cout << "c" << endl;
 		eFood = eFood->getNext();
 		while (eFood != NULL) {
-			cout << "d" << endl;
 			double distance = distanceWithFood(
 				this->getX(),
 				this->getY(),
@@ -243,25 +239,17 @@ Food* Guppy::findNearestFood(LinkedList<Food> &foods){
 			if (distance < minDistance) {
 				minDistance = distance;
 				nearestFood = eFood->getInfo();
-				cout << "e" << endl;
 			}
 
 			eFood = eFood->getNext();
 		}
-		cout << "f" << endl;
 		return nearestFood;
 	}else{
 		return NULL;
 	}
 }
 
-bool Guppy::isAbleToConsume(Food const& food){ //belum diimplementasi
-	cout << "Food X: " << food.getX();
-	cout << "Food Y: " << food.getY();
-	cout << "Top: " << this->getTop();
-	cout << "Bottom: " << this->getBottom();
-	cout << "Right: " << this->getRight();
-	cout << "Left: " << this->getLeft();
+bool Guppy::isAbleToConsume(Food const& food){
 	return (this->getSpace())->isExist(food.getId(), TYPE_FOOD) && (
 		(food.getX() > this->getLeft()) && 
 		(food.getX() < this->getRight()) &&
