@@ -192,7 +192,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			eFood = eFood->getNext();
 			i++;
 		}
-		checkLoseCondition();
+		// checkLoseCondition();
 	} else if (entityType == TYPE_GUPPY) {
 		Element<Guppy> *eGuppy = guppies.getFirst();
 		int i = 0;
@@ -205,7 +205,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			eGuppy = eGuppy->getNext();
 			i++;
 		}
-		checkLoseCondition();
+		// checkLoseCondition();
 	} else if (entityType == TYPE_PIRANHA) {
 		Element<Piranha> *ePiranha = piranhas.getFirst();
 		int i = 0;
