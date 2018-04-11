@@ -21,15 +21,14 @@ double distanceWithFood(double pos1X, double pos1Y, double pos2X, double pos2Y) 
 }
 
 Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_GUPPY) {
-	setC(15);
+	setC(640);
 	setG(small);
 	growthCounter=0;
 	setLastFed(this->tickTime);
 	setLastCoin(this->tickTime);
-	driftLength=3;
+	driftLength=200;
 	lastDrift = this->tickTime;
 	
-	srand(time(NULL));
 	setDirection(fRand(0,8*atan(1)));
 	if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
 		setDirRight(true);
@@ -109,7 +108,6 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 				setHunger(false);
 				growthCounter++;
 				if (((this->tickTime)-(this->lastDrift))>=this->driftLength){
-					srand(time(NULL));
 					setDirection(fRand(0,8*atan(1)));	//randomize direction
 					driftLength = rand() % 3;	//maksimal 7 tick
 					lastDrift = this->tickTime;
@@ -205,13 +203,12 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 		}
 	}else{
 		if (((this->tickTime)-(this->lastDrift))>=this->driftLength){
-			srand(time(NULL));
 			setDirection(fRand(0,8*atan(1)));	//randomize direction
-			driftLength = rand() % 3;	//maksimal 3 tick
+			driftLength = rand() % 200;	//maksimal 200 tick
 			lastDrift = this->tickTime;
 		}
 
-		if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
+		if ((getDirection()>2*atan(1))&&(getDirection()<6*atan(1))){
 			setDirRight(true);
 		}
 		else {
@@ -252,7 +249,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 			setDirection(getDirection()+2*atan(1));
 		}
 	}
-	//this->increaseTick();
+	this->increaseTick();
 }
 
 Food* Guppy::findNearestFood(LinkedList<Food> &foods){
