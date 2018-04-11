@@ -104,5 +104,4 @@ public:
 	void remove(int entityId, int entityType);
 	bool isExist(int entityId, int entityType);
 };
-
 #endif
