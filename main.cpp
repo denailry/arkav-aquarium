@@ -45,6 +45,34 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
         eCoin->getInfo()->setRadY(imageLoader->h/2);
         eCoin = eCoin->getNext();
     }
+
+    // UPDATE GUPPY
+    Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
+    while (eGuppy != NULL) {
+        imageLoader = loadSurface(eGuppy->getInfo()->getImage());
+        eGuppy->getInfo()->setRadX(imageLoader->w/2);
+        eGuppy->getInfo()->setRadY(imageLoader->h/2);
+        eGuppy = eGuppy->getNext();
+    }
+
+    // UPDATE PIRANHA
+    Element<Piranha> *ePiranha = aquarium.getPiranhas().getFirst();
+    while (ePiranha != NULL) {
+        imageLoader = loadSurface(ePiranha->getInfo()->getImage());
+        ePiranha->getInfo()->setRadX(imageLoader->w/2);
+        ePiranha->getInfo()->setRadY(imageLoader->h/2);
+        ePiranha = ePiranha->getNext();
+    }
+
+    // UPDATE FOOD
+    Element<Food> *eFood = aquarium.getFoods().getFirst();
+    while (eFood != NULL) {
+        imageLoader = loadSurface(eFood->getInfo()->getImage());
+        eFood->getInfo()->setRadX(imageLoader->w/2);
+        eFood->getInfo()->setRadY(imageLoader->h/2);
+        eFood = eFood->getNext();
+    }
+
     aquarium.tick(sec_since_last);
 }
 
@@ -73,13 +101,31 @@ void updateScreen(Aquarium &aquarium) {
     draw_image("shop-icon-telur-3.png", distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
     distanceFromLeft += imageLoader->w + margin;
 
-    draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
     draw_image("ikan.png", cx, cy);
+    draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
     Element<Coin> *eCoin = aquarium.getCoins().getFirst();
     while (eCoin != NULL) {
         Coin *coin = eCoin->getInfo();
         draw_image(coin->getImage(), coin->getX(), coin->getY());
         eCoin = eCoin->getNext();
+    }
+    Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
+    while (eGuppy != NULL) {
+        Guppy *guppy = eGuppy->getInfo();
+        draw_image(guppy->getImage(), guppy->getX(), guppy->getY());
+        eGuppy = eGuppy->getNext();
+    }
+    Element<Piranha> *ePiranha = aquarium.getPiranhas().getFirst();
+    while (ePiranha != NULL) {
+        Piranha *piranha = ePiranha->getInfo();
+        draw_image(piranha->getImage(), piranha->getX(), piranha->getY());
+        ePiranha = ePiranha->getNext();
+    }
+    Element<Food> *eFood = aquarium.getFoods().getFirst();
+    while (eFood != NULL) {
+        Food *food = eFood->getInfo();
+        draw_image(food->getImage(), food->getX(), food->getY());
+        eFood = eFood->getNext();
     }
     update_screen();
 }
