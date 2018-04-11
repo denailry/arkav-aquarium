@@ -37,6 +37,12 @@ void Aquarium::tickGuppies(double delay) {
 		eGuppy->getInfo()->tick(foods, newCoin, delay);
 		eGuppy = eGuppy->getNext();
 	}
+
+	Element<Coin> *eCoin = newCoin.getFirst();
+	while (eCoin != NULL) {
+		this->addCoin(eCoin->getInfo());
+		eCoin = eCoin->getNext();
+	}
 }
 
 void Aquarium::tickPiranhas(double delay) {
