@@ -132,7 +132,6 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
 }
 
 void updateScreen(Aquarium &aquarium) {
-    // draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
     // draw_text(fps_text, 18, 10, 30, 0, 0, 0);
     SDL_Surface* imageLoader;
 
@@ -176,7 +175,54 @@ void updateScreen(Aquarium &aquarium) {
         eFood = eFood->getNext();
     }
 
+    // draw_text("Money: " + aquarium.getMoney(), 18, 10, 10, 0, 0, 0);
+
+    // if (aquarium.isGameOver()) {
+    //     draw_text("GAME OVER", 18, 10, 10, 0, 0, 0);
+    // }
+
     update_screen();
+}
+
+void handleMouseClick(Aquarium &aquarium) {
+    if (isLeftButtonClicked()) {
+        std::string name = buttonsCheck(getMouseX(), getMouseY());
+        if (name == "guppy") {
+            SDL_Surface* imageLoader = loadSurface("small-guppy-left.png");
+            aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+            aquarium.buy(10);
+        } else if (name == "piranha") {
+            SDL_Surface* imageLoader = loadSurface("piranha-right.png");
+            aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+            aquarium.buy(25);
+        } else if (name == "egg-1") {
+            aquarium.buy(50);
+        } else if (name == "egg-2") {
+            aquarium.buy(100);
+        } else if (name == "egg-3") {
+            aquarium.buy(200);
+        } else if (name == "aquarium") {
+            bool coinFound = false;
+            Element<Coin> *eCoin = aquarium.getCoins().getFirst();
+            while (eCoin != NULL) {
+                Coin *coin = eCoin->getInfo();
+                if (getMouseX() > coin->getLeft() &&
+                    getMouseX() < coin->getRight() &&
+                    getMouseY() > coin->getTop() &&
+                    getMouseY() < coin->getBottom()) {
+                    aquarium.remove(coin->getId(), TYPE_COIN);
+                    coinFound = true;
+                    break;
+                }
+                eCoin = eCoin->getNext();
+            }
+
+            if (!coinFound) {
+                SDL_Surface* imageLoader = loadSurface("food.png");
+                aquarium.addFood(new Food(getMouseX(), getMouseY(), imageLoader->w, imageLoader->h));
+            }
+        }
+    }
 }
 
 int main( int argc, char* args[] )
@@ -223,46 +269,9 @@ int main( int argc, char* args[] )
             }
         }
 
-        if (isLeftButtonClicked()) {
-            std::string name = buttonsCheck(getMouseX(), getMouseY());
-            if (name == "guppy") {
-                SDL_Surface* imageLoader = loadSurface("small-guppy-left.png");
-                aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
-                aquarium.buy(10);
-            } else if (name == "piranha") {
-                SDL_Surface* imageLoader = loadSurface("piranha-right.png");
-                aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
-                aquarium.buy(25);
-            } else if (name == "egg-1") {
-                aquarium.buy(50);
-            } else if (name == "egg-2") {
-                aquarium.buy(100);
-            } else if (name == "egg-3") {
-                aquarium.buy(200);
-            } else if (name == "aquarium") {
-                bool coinFound = false;
-                Element<Coin> *eCoin = aquarium.getCoins().getFirst();
-                while (eCoin != NULL) {
-                    Coin *coin = eCoin->getInfo();
-                    if (getMouseX() > coin->getLeft() &&
-                        getMouseX() < coin->getRight() &&
-                        getMouseY() > coin->getTop() &&
-                        getMouseY() < coin->getBottom()) {
-                        aquarium.remove(coin->getId(), TYPE_COIN);
-                        coinFound = true;
-                        break;
-                    }
-                    eCoin = eCoin->getNext();
-                }
 
-                if (!coinFound) {
-                    SDL_Surface* imageLoader = loadSurface("food.png");
-                    aquarium.addFood(new Food(getMouseX(), getMouseY(), imageLoader->w, imageLoader->h));
-                }
-            }
-        }
+        handleMouseClick(aquarium);
 
-        // Update FPS setiap detik
         frames_passed++;
         if (now - fpc_start > 1.0/128.0) {
             updateFrame(aquarium, sec_since_last);

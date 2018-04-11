@@ -9,12 +9,13 @@ Aquarium::Aquarium(int width, int top, int bottom) {
 	this->width = width;
 	this->top = top;
 	this->bottom = bottom;
-	this->money = 0;
+	this->money = 20;
 	this->objectCounter = 0;
 	this->coinNumber = 0;
 	this->foodNumber = 0;
 	this->guppyNumber = 0;
 	this->piranhaNumber = 0;
+	this->gameOver = false;
 }
 
 // Aquarium::Aquarium(Aquarium const &aquarium) {
@@ -68,7 +69,9 @@ void Aquarium::tickPiranhas(double delay) {
 }
 
 void Aquarium::tickSnail(double delay) {
-	this->snail->tick(coins, delay);
+	if (this->snail != NULL) {
+		this->snail->tick(coins, delay);
+	}
 }
 
 // void Aquarium::printScreen() {
@@ -156,17 +159,38 @@ bool Aquarium::buy(int price) {
 	return true;
 }
 
+int Aquarium::getMoney() {
+	return this->money;
+}
+
 void Aquarium::tick(double delay) {	
-	tickCoins(delay);
-	tickFoods(delay);
-	tickGuppies(delay);
-	tickPiranhas(delay);
-	tickSnail(delay);
+	if (this->gameOver != true) {
+		tickCoins(delay);
+		tickFoods(delay);
+		tickGuppies(delay);
+		tickPiranhas(delay);
+		tickSnail(delay);
+	}
 }
 
 bool Aquarium::moveTo(int entityId, int entityType, double newX, double newY) {
 	return (newX > 0 && newX < width && newY > this->top && newY < this->bottom);
 }
+
+void Aquarium::checkLoseCondition() {
+	if (this->coinNumber == 0 &&
+		this->foodNumber == 0 &&
+		this->piranhaNumber == 0 &&
+		this->money < 10) {
+
+		this->gameOver = true;
+	}
+}
+
+bool Aquarium::isGameOver() {
+	return this->gameOver;
+}
+
 void Aquarium::remove(int entityId, int entityType) {
 	if (entityType == TYPE_COIN) {
 		Element<Coin> *eCoin = coins.getFirst();
@@ -194,6 +218,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			eFood = eFood->getNext();
 			i++;
 		}
+		checkLoseCondition();
 	} else if (entityType == TYPE_GUPPY) {
 		Element<Guppy> *eGuppy = guppies.getFirst();
 		int i = 0;
@@ -206,6 +231,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			eGuppy = eGuppy->getNext();
 			i++;
 		}
+		checkLoseCondition();
 	} else if (entityType == TYPE_PIRANHA) {
 		Element<Piranha> *ePiranha = piranhas.getFirst();
 		int i = 0;
@@ -230,6 +256,15 @@ bool Aquarium::isExist(int entityId, int entityType) {
 			}
 			eCoin = eCoin->getNext();
 		}
+	}
+	if (entityType == TYPE_FOOD) {
+		Element<Food> *eFood = foods.getFirst();
+		while (eFood != NULL) {
+			if (eFood->getInfo()->getId() == entityId) {
+				return true;
+			}
+			eFood = eFood->getNext();
+		}	
 	}
 	return false;
 }

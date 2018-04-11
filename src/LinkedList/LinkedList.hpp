@@ -17,6 +17,17 @@ class LinkedList {
 			return first == NULL;
 		}
 
+		Type* get(int index) {
+			Element<Type> *P = first;
+		    for (int i = 0; i < index; ++i) {
+		    	if (P == NULL) {
+		    		return NULL;
+		    	}
+		        P = P->getNext();
+		    }
+		    return P->getInfo();
+		}
+
 		bool remove(int index) {
 			if (index < 0 || isEmpty()) {
 				return false;

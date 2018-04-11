@@ -43,6 +43,8 @@ private:
 	// To generate id for object which enter the aquarium
 	int objectCounter;
 
+	bool gameOver;
+
 	// Tick for each entities
 	// Each of these functions call tick function in each derived Entities
 	// And provide corresponding parameter
@@ -54,6 +56,9 @@ private:
 
 	// Add Entity to screen
 	bool addToScreen(Entity &entity);
+
+	// Check lose condition
+	void checkLoseCondition();
 public:
 	// Constructor
 	// Initialize screen
@@ -87,6 +92,8 @@ public:
 	int getWidth();
 	int getTop();
 	int getBottom();
+	bool isGameOver();
+	int getMoney();
 
 	// Buy something
 	bool buy(int price);
@@ -97,5 +104,4 @@ public:
 	void remove(int entityId, int entityType);
 	bool isExist(int entityId, int entityType);
 };
-
 #endif
