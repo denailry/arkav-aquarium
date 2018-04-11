@@ -2,6 +2,12 @@
 #include <cmath>
 #include <iostream>
 
+double pRand(double fMin, double fMax)
+{
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
+
 double distanceWithGuppy(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	double xDiff = std::abs(pos1X - pos2X);
 	double yDiff = std::abs(pos1Y - pos2Y);
@@ -10,11 +16,10 @@ double distanceWithGuppy(double pos1X, double pos1Y, double pos2X, double pos2Y)
 
 Piranha::Piranha(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_PIRANHA){
 		setLastFed(this->tickTime);
-		setLastCoin(this->tickTime);
 		driftLength=200;
 		lastDrift = this->tickTime;
 		
-		setDirection(fRand(0,8*atan(1)));
+		setDirection(pRand(0,8*atan(1)));
 		if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
 			setDirRight(true);
 		}else{
@@ -41,7 +46,7 @@ void Piranha::setLastFed(int lf){
 void Piranha::tick(LinkedList<Guppy> const& guppies, LinkedList<Coin> &coins, double delay){	//belum diimplementasi
 }
 
-Guppy& Piranha::findNearestGuppy(LinkedList<Guppy> &guppies){
+Guppy* Piranha::findNearestGuppy(LinkedList<Guppy> &guppies){
 	Element<Guppy>* eGuppy = guppies.getFirst();
 	if (eGuppy != NULL){
 		Guppy *nearestGuppy = eGuppy->getInfo();
