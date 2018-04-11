@@ -240,6 +240,7 @@ int main( int argc, char* args[] )
             } else if (name == "egg-3") {
                 aquarium.buy(200);
             } else if (name == "aquarium") {
+                bool coinFound = false;
                 Element<Coin> *eCoin = aquarium.getCoins().getFirst();
                 while (eCoin != NULL) {
                     Coin *coin = eCoin->getInfo();
@@ -248,9 +249,15 @@ int main( int argc, char* args[] )
                         getMouseY() > coin->getTop() &&
                         getMouseY() < coin->getBottom()) {
                         aquarium.remove(coin->getId(), TYPE_COIN);
+                        coinFound = true;
                         break;
                     }
                     eCoin = eCoin->getNext();
+                }
+
+                if (!coinFound) {
+                    SDL_Surface* imageLoader = loadSurface("unknown.png");
+                    aquarium.addFood(new Food(getMouseX(), getMouseY(), imageLoader->w, imageLoader->h));
                 }
             }
         }
