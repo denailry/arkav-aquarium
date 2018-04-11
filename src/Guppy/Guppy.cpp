@@ -1,6 +1,7 @@
 #include "Guppy.hpp"
 #include <cmath>
 #include <time.h>
+#include <iostream>
 
 #define LAPAR 100
 #define KOIN 1
@@ -25,39 +26,24 @@ Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width
 	growthCounter=0;
 	setLastFed(this->tickTime);
 	setLastCoin(this->tickTime);
-	driftLength=10;
+	driftLength=3;
 	lastDrift = this->tickTime;
-	this->setDirRight(true);
+	
 	srand(time(NULL));
 	setDirection(fRand(0,8*atan(1)));
 	if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
 		setDirRight(true);
-	}
-	else {
+	}else{
 		setDirRight(false);
 	}
 
-	if ((this->dirRight)&&((this->G)==3)){	//menentukan gambar ikan yang dipakai
+	if (this->dirRight){	//menentukan gambar ikan yang dipakai
 		this->setImage("ikan.png");
-	}
-	else if ((this->dirRight)&&((this->G)==2)){
-		this->setImage("medium-guppy-right.png");
-	}
-	else if ((this->dirRight)&&((this->G)==1)){
-		this->setImage("large-guppy-right.png");
-	}
-	else if ((!this->dirRight)&&((this->G)==3)){
+	}else{
 		this->setImage("ikan_left.png");
 	}
-	else if ((!this->dirRight)&&((this->G)==2)){
-		this->setImage("medium-guppy-left.png");
-	}
-	else if ((!this->dirRight)&&((this->G)==1)){
-		this->setImage("large-guppy-left.png");
-	}
-	//this->setDirection(atan(1)*4.0/2.0);
+	
 	this->setHunger(false);
-	this->setImage("ikan.png");
 }
 
 //Get & set
@@ -95,7 +81,6 @@ void Guppy::setLastCoin(int lc){
 
 //Service
 void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay){
-	this->increaseTick();
 	if (((this->getTickTime())-lastCoin)>=KOIN){
 		lastCoin=(this->getTickTime());
 		if ((this->G)==1){
@@ -128,33 +113,30 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 					setDirection(fRand(0,8*atan(1)));	//randomize direction
 					driftLength = rand() % 3;	//maksimal 7 tick
 					lastDrift = this->tickTime;
-				}/*
-				if (){	//Ikan menabrak dinding akuarium
-					setDirection(getDirection()+2*atan(1));
-				}*/
+				}
+
 				if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
 					setDirRight(true);
-				}
-				else {
+				}else{
 					setDirRight(false);
 				}
 
-				if ((this->dirRight)&&((this->G)==3)){	//menentukan gambar ikan yang dipakai
+				if ((this->dirRight)&&((this->G)==1)){	//menentukan gambar ikan yang dipakai
 					this->setImage("ikan.png");
 				}
 				else if ((this->dirRight)&&((this->G)==2)){
 					this->setImage("medium-guppy-right.png");
 				}
-				else if ((this->dirRight)&&((this->G)==1)){
+				else if ((this->dirRight)&&((this->G)==3)){
 					this->setImage("large-guppy-right.png");
 				}
-				else if ((!this->dirRight)&&((this->G)==3)){
+				else if ((!this->dirRight)&&((this->G)==1)){
 					this->setImage("ikan_left.png");
 				}
 				else if ((!this->dirRight)&&((this->G)==2)){
 					this->setImage("medium-guppy-left.png");
 				}
-				else if ((!this->dirRight)&&((this->G)==1)){
+				else if ((!this->dirRight)&&((this->G)==3)){
 					this->setImage("large-guppy-left.png");
 				}
 
@@ -227,10 +209,8 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 			setDirection(fRand(0,8*atan(1)));	//randomize direction
 			driftLength = rand() % 3;	//maksimal 3 tick
 			lastDrift = this->tickTime;
-		}/*
-		if (){	//Ikan menabrak dinding akuarium
-			setDirection(getDirection()+2*atan(1));
-		}*/
+		}
+
 		if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
 			setDirRight(true);
 		}
@@ -272,6 +252,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 			setDirection(getDirection()+2*atan(1));
 		}
 	}
+	//this->increaseTick();
 }
 
 Food* Guppy::findNearestFood(LinkedList<Food> &foods){

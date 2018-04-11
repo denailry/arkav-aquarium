@@ -17,11 +17,11 @@ double AQUARIUM_HEIGHT = SCREEN_HEIGHT;
 const int margin = 10;
 int SHOP_ITEMS_NUMBER = 5;
 std::string SHOP_ITEMS[5] = {
-    "shop-icon-guppy.png",
-    "shop-icon-piranha.png",
-    "shop-icon-telur-1.png",
-    "shop-icon-telur-2.png",
-    "shop-icon-telur-3.png"
+    "shop-icon-guppy.jpg",
+    "shop-icon-piranha.jpg",
+    "shop-icon-telur-1.jpg",
+    "shop-icon-telur-2.jpg",
+    "shop-icon-telur-3.jpg"
 };
 
 typedef struct {
@@ -63,7 +63,7 @@ Aquarium& initialization() {
     AQUARIUM_HEIGHT = AQUARIUM_HEIGHT - imageLoader->h;
 
     // INITIALIZE BUTTON
-    imageLoader = loadSurface("shop-icon-guppy.png");
+    imageLoader = loadSurface("shop-icon-guppy.jpg");
     std::string buttonNames[5] = {
         "guppy",
         "piranha",
@@ -145,7 +145,7 @@ void updateScreen(Aquarium &aquarium) {
     draw_image("bg.jpg", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
     imageLoader = loadSurface("shop-case.png");
     draw_image("shop-case.png", SCREEN_WIDTH / 2, imageLoader->h/2);
-    imageLoader = loadSurface("shop-icon-guppy.png");
+    imageLoader = loadSurface("shop-icon-guppy.jpg");
     for (int i = 0; i < SHOP_ITEMS_NUMBER; ++i) {
         draw_image(SHOP_ITEMS[i], distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
         distanceFromLeft += imageLoader->w + margin;
