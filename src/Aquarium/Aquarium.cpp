@@ -173,7 +173,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			i++;
 		}
 	} else if (entityType == TYPE_FOOD) {
-		Element<Food> *eFood = foods.getFirst();
+		/*Element<Food> *eFood = foods.getFirst();
 		int i = 0;
 		while (eFood != NULL) {
 			if (eFood->getInfo()->getId() == entityId) {
@@ -182,7 +182,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			}
 			eFood = eFood->getNext();
 			i++;
-		}
+		}*/
 	} else if (entityType == TYPE_GUPPY) {
 		Element<Guppy> *eGuppy = guppies.getFirst();
 		int i = 0;
