@@ -31,6 +31,12 @@ private:
 	LinkedList<Piranha> piranhas;
 	Snail* snail;
 
+	// Entity counter
+	int coinNumber;
+	int foodNumber;
+	int guppyNumber;
+	int piranhaNumber;
+
 	// Collected score from collected coins
 	int money;
 

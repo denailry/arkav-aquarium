@@ -11,6 +11,10 @@ Aquarium::Aquarium(int width, int top, int bottom) {
 	this->bottom = bottom;
 	this->money = 0;
 	this->objectCounter = 0;
+	this->coinNumber = 0;
+	this->foodNumber = 0;
+	this->guppyNumber = 0;
+	this->piranhaNumber = 0;
 }
 
 // Aquarium::Aquarium(Aquarium const &aquarium) {
@@ -76,6 +80,7 @@ void Aquarium::addCoin(Coin *coin) {
 	coin->setSpace(this);
 	coin->setId(this->objectCounter);
 	this->objectCounter++;
+	this->coinNumber++;
 }
 
 void Aquarium::addFood(Food *food) {
@@ -83,6 +88,7 @@ void Aquarium::addFood(Food *food) {
 	food->setSpace(this);
 	food->setId(this->objectCounter);
 	this->objectCounter++;
+	this->foodNumber++;
 }
 
 void Aquarium::addGuppy(Guppy *guppy) {
@@ -90,6 +96,7 @@ void Aquarium::addGuppy(Guppy *guppy) {
 	guppy->setSpace(this);
 	guppy->setId(this->objectCounter);
 	this->objectCounter++;
+	this->guppyNumber++;
 }
 
 void Aquarium::addPiranha(Piranha *piranha) {
@@ -97,6 +104,7 @@ void Aquarium::addPiranha(Piranha *piranha) {
 	piranha->setSpace(this);
 	piranha->setId(this->objectCounter);
 	this->objectCounter++;
+	this->piranhaNumber++;
 }
 
 bool Aquarium::addToScreen(Entity &entity) {
@@ -166,6 +174,7 @@ void Aquarium::remove(int entityId, int entityType) {
 		while (eCoin != NULL) {
 			if (eCoin->getInfo()->getId() == entityId) {
 				this->money += eCoin->getInfo()->getValue();
+				this->coinNumber--;
 				coins.remove(i);
 				break;
 			}
@@ -177,6 +186,7 @@ void Aquarium::remove(int entityId, int entityType) {
 		int i = 0;
 		while (eFood != NULL) {
 			if (eFood->getInfo()->getId() == entityId) {
+				this->foodNumber--;
 				foods.remove(i);
 				break;
 			}
@@ -188,6 +198,7 @@ void Aquarium::remove(int entityId, int entityType) {
 		int i = 0;
 		while (eGuppy != NULL) {
 			if (eGuppy->getInfo()->getId() == entityId) {
+				this->guppyNumber--;
 				guppies.remove(i);
 				break;
 			}
@@ -199,6 +210,7 @@ void Aquarium::remove(int entityId, int entityType) {
 		int i = 0;
 		while (ePiranha != NULL) {
 			if (ePiranha->getInfo()->getId() == entityId) {
+				this->piranhaNumber--;
 				piranhas.remove(i);
 				break;
 			}
