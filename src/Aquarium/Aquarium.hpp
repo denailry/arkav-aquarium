@@ -92,6 +92,8 @@ public:
 	int getWidth();
 	int getTop();
 	int getBottom();
+	bool isGameOver();
+	int getMoney();
 
 	// Buy something
 	bool buy(int price);

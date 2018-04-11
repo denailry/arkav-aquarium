@@ -9,7 +9,7 @@ Aquarium::Aquarium(int width, int top, int bottom) {
 	this->width = width;
 	this->top = top;
 	this->bottom = bottom;
-	this->money = 0;
+	this->money = 20;
 	this->objectCounter = 0;
 	this->coinNumber = 0;
 	this->foodNumber = 0;
@@ -159,6 +159,10 @@ bool Aquarium::buy(int price) {
 	return true;
 }
 
+int Aquarium::getMoney() {
+	return this->money;
+}
+
 void Aquarium::tick(double delay) {	
 	if (this->gameOver != true) {
 		tickCoins(delay);
@@ -181,6 +185,10 @@ void Aquarium::checkLoseCondition() {
 
 		this->gameOver = true;
 	}
+}
+
+bool Aquarium::isGameOver() {
+	return this->gameOver;
 }
 
 void Aquarium::remove(int entityId, int entityType) {
@@ -248,6 +256,15 @@ bool Aquarium::isExist(int entityId, int entityType) {
 			}
 			eCoin = eCoin->getNext();
 		}
+	}
+	if (entityType == TYPE_FOOD) {
+		Element<Food> *eFood = foods.getFirst();
+		while (eFood != NULL) {
+			if (eFood->getInfo()->getId() == entityId) {
+				return true;
+			}
+			eFood = eFood->getNext();
+		}	
 	}
 	return false;
 }
