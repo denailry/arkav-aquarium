@@ -21,9 +21,9 @@ class LinkedList {
 			if (index < 0 || isEmpty()) {
 				return false;
 			} else if (index == 0) {
-				Element<Type> *oldFirst = this->first;
+				// Element<Type> *oldFirst = this->first;
 				this->first = this->first->getNext();
-				delete oldFirst;
+				// delete oldFirst;
 			} else {
 				index--;
 				Element<Type> *elmt = this->first;
@@ -36,7 +36,7 @@ class LinkedList {
 				}
 				Element<Type> *oldElmt = elmt->getNext();
 				elmt->setNext(oldElmt->getNext());
-				delete oldElmt;
+				// delete oldElmt;
 			}
 			return true;
 		}
