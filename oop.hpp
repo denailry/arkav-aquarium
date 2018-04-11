@@ -68,6 +68,12 @@ const std::set<SDL_Keycode>& get_pressed_keys();
 // handle_input() terakhir dipanggil.
 const std::set<SDL_Keycode>& get_tapped_keys();
 
+bool isLeftButtonClicked();
+bool isLeftButtonPressed();
+bool isLeftButtonReleased();
+int getMouseX();
+int getMouseY();
+
 // ---------------------------------- WAKTU ----------------------------------
 
 // Mengembalikan waktu dari permulaan program dalam nilai detik (bisa pecahan).

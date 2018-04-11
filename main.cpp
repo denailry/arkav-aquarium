@@ -225,7 +225,7 @@ int main( int argc, char* args[] )
                 break;
             }
         }
-        
+
         // Proses masukan yang bersifat "tombol"
         for (auto key : get_tapped_keys()) {
             switch (key) {
@@ -267,9 +267,28 @@ int main( int argc, char* args[] )
             }
         }
 
+        if (isLeftButtonClicked()) {
+            std::string name = buttonsCheck(getMouseX(), getMouseY());
+            if (name == "guppy") {
+                SDL_Surface* imageLoader = loadSurface("ikan.png");
+                aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+                aquarium.buy(10);
+            } else if (name == "piranha") {
+                SDL_Surface* imageLoader = loadSurface("ikan.png");
+                aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+                aquarium.buy(25);
+            } else if (name == "egg-1") {
+                aquarium.buy(50);
+            } else if (name == "egg-2") {
+                aquarium.buy(100);
+            } else if (name == "egg-3") {
+                aquarium.buy(200);
+            }
+        }
+
         // Update FPS setiap detik
         frames_passed++;
-        if (now - fpc_start > 1.0/120.0) {
+        if (now - fpc_start > 1.0/128.0) {
             updateFrame(aquarium, sec_since_last);
             std::ostringstream strs;
             strs << "FPS: " ;
