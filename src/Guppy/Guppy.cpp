@@ -5,7 +5,7 @@
 using namespace std;
 
 #define LAPAR 200
-#define KOIN 1
+#define KOIN 640
 #define MATI 2000
 #define NGEGEDEIN 5
 

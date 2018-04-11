@@ -14,7 +14,9 @@ public:
 private:
     /* Atribut untuk piranha (boleh ditambah kalau belum lengkap): */
     int lastFed;
-    Guppy& findNearestGuppy(LinkedList<Guppy> &guppies);
+    int lastDrift; //baru nih
+	int driftLength; //baru nih 
+    Guppy* findNearestGuppy(LinkedList<Guppy> &guppies);
     bool isAbleToConsume(Guppy const& guppy);
 };
 
