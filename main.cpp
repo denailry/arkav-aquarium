@@ -234,6 +234,12 @@ int main( int argc, char* args[] )
                     aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
                 }
                 break;
+            case SDLK_t:
+                {
+                    SDL_Surface* imageLoader = loadSurface("unknown.png");
+                    aquarium.addFood(new Food(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+                }
+                break;
             // x untuk keluar
             case SDLK_x:
                 {
