@@ -11,3 +11,7 @@ int Tick::getTickTime() {
 void Tick::resetTickTime() {
 	this->tickTime = 0;
 }
+
+void Tick::increaseTick() {
+	this->tickTime++;
+}

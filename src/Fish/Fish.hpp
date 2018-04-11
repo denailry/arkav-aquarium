@@ -14,7 +14,6 @@ class Fish : public Entity {
 protected:
 	bool dirRight; //bernilai true jika ke arah kanan dan false jika ke arah kiri
 	bool hunger; //bernilai true apabila ikan lapar
-	
 public:
 	// Constructor
 	// Need position x and y

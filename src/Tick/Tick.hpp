@@ -23,6 +23,7 @@ public:
 
 	int getTickTime();
 	void resetTickTime();
+	void increaseTick();
 };
 
 #endif

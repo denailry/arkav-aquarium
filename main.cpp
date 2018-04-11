@@ -26,7 +26,7 @@ Aquarium& initialization() {
     srand(time(NULL));
     Snail *snail = new Snail(rand() % SCREEN_WIDTH + 1, SCREEN_HEIGHT-(imageLoader->h/2), imageLoader->w, imageLoader->h);
     aquarium->setSnail(snail);
-    return *aquarium;
+		return *aquarium;
 }
 
 void updateFrame(Aquarium &aquarium, double sec_since_last) {
@@ -45,6 +45,17 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
         eCoin->getInfo()->setRadY(imageLoader->h/2);
         eCoin = eCoin->getNext();
     }
+		
+		// UPDATE GUPPY TRY
+    Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
+    while (eGuppy != NULL) {
+        imageLoader = loadSurface(eGuppy->getInfo()->getImage());
+        eGuppy->getInfo()->setRadX(imageLoader->w/2);
+        eGuppy->getInfo()->setRadY(imageLoader->h/2);
+        eGuppy = eGuppy->getNext();
+    }
+		// UPDATE GUPPY TRY
+		
     aquarium.tick(sec_since_last);
 }
 
@@ -74,13 +85,20 @@ void updateScreen(Aquarium &aquarium) {
     distanceFromLeft += imageLoader->w + margin;
 
     draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
-    draw_image("ikan.png", cx, cy);
     Element<Coin> *eCoin = aquarium.getCoins().getFirst();
     while (eCoin != NULL) {
         Coin *coin = eCoin->getInfo();
         draw_image(coin->getImage(), coin->getX(), coin->getY());
         eCoin = eCoin->getNext();
     }
+		//TRY GUPPY
+		Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
+    while (eGuppy != NULL) {
+        Guppy *guppy = eGuppy->getInfo();
+        draw_image(guppy->getImage(), guppy->getX(), guppy->getY());
+        eGuppy = eGuppy->getNext();
+    }
+		//TRY GUPPY
     update_screen();
 }
 
@@ -108,7 +126,7 @@ int main( int argc, char* args[] )
         if (quit_pressed()) {
             running = false;
         }
-
+				/*
         // Gerakkan ikan selama tombol panah ditekan
         // Kecepatan dikalikan dengan perbedaan waktu supaya kecepatan ikan
         // konstan pada komputer yang berbeda.
@@ -128,7 +146,7 @@ int main( int argc, char* args[] )
                 break;
             }
         }
-
+				*/
         // Proses masukan yang bersifat "tombol"
         for (auto key : get_tapped_keys()) {
             switch (key) {
@@ -139,6 +157,16 @@ int main( int argc, char* args[] )
                     aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
                 }
                 break;
+								
+						// GUPPY TRY
+            case SDLK_g:
+                {
+                    SDL_Surface* imageLoader = loadSurface("ikan.png");
+                    aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+                }
+                break;
+						// GUPPY TRY		
+						
             // x untuk keluar
             case SDLK_x:
                 running = false;
