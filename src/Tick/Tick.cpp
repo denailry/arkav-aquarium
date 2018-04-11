@@ -1,4 +1,5 @@
 #include "Tick.hpp"
+#include <stdlib.h>
 
 Tick::Tick() {
 	this->tickTime = 0;
@@ -13,5 +14,9 @@ void Tick::resetTickTime() {
 }
 
 void Tick::increaseTick() {
-	this->tickTime++;
+	this->tickTime = (this->tickTime + 1) % 2147483647;
+}
+
+int Tick::diff(int tickTime) {
+	return (abs(this->tickTime - tickTime));
 }

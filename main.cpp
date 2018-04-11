@@ -102,13 +102,8 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
         eCoin->getInfo()->setRadY(imageLoader->h/2);
         eCoin = eCoin->getNext();
     }
-<<<<<<< HEAD
-		
-		// UPDATE GUPPY TRY
-=======
 
     // UPDATE GUPPY
->>>>>>> c6ecbb1d7402458447da2e64d930e2a85c76c091
     Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
     while (eGuppy != NULL) {
         imageLoader = loadSurface(eGuppy->getInfo()->getImage());
@@ -116,10 +111,6 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
         eGuppy->getInfo()->setRadY(imageLoader->h/2);
         eGuppy = eGuppy->getNext();
     }
-<<<<<<< HEAD
-		// UPDATE GUPPY TRY
-		
-=======
 
     // UPDATE PIRANHA
     Element<Piranha> *ePiranha = aquarium.getPiranhas().getFirst();
@@ -139,7 +130,6 @@ void updateFrame(Aquarium &aquarium, double sec_since_last) {
         eFood = eFood->getNext();
     }
 
->>>>>>> c6ecbb1d7402458447da2e64d930e2a85c76c091
     aquarium.tick(sec_since_last);
 }
 
@@ -168,20 +158,14 @@ void updateScreen(Aquarium &aquarium) {
         draw_image(coin->getImage(), coin->getX(), coin->getY());
         eCoin = eCoin->getNext();
     }
-<<<<<<< HEAD
-		//TRY GUPPY
-		Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
-=======
+
     Element<Guppy> *eGuppy = aquarium.getGuppies().getFirst();
->>>>>>> c6ecbb1d7402458447da2e64d930e2a85c76c091
     while (eGuppy != NULL) {
         Guppy *guppy = eGuppy->getInfo();
         draw_image(guppy->getImage(), guppy->getX(), guppy->getY());
         eGuppy = eGuppy->getNext();
     }
-<<<<<<< HEAD
-		//TRY GUPPY
-=======
+
     Element<Piranha> *ePiranha = aquarium.getPiranhas().getFirst();
     while (ePiranha != NULL) {
         Piranha *piranha = ePiranha->getInfo();
@@ -194,7 +178,7 @@ void updateScreen(Aquarium &aquarium) {
         draw_image(food->getImage(), food->getX(), food->getY());
         eFood = eFood->getNext();
     }
->>>>>>> c6ecbb1d7402458447da2e64d930e2a85c76c091
+
     update_screen();
 }
 
@@ -222,7 +206,6 @@ int main( int argc, char* args[] )
         if (quit_pressed()) {
             running = false;
         }
-				/*
         // Gerakkan ikan selama tombol panah ditekan
         // Kecepatan dikalikan dengan perbedaan waktu supaya kecepatan ikan
         // konstan pada komputer yang berbeda.
@@ -242,7 +225,7 @@ int main( int argc, char* args[] )
                 break;
             }
         }
-				*/
+        
         // Proses masukan yang bersifat "tombol"
         for (auto key : get_tapped_keys()) {
             switch (key) {
@@ -253,25 +236,12 @@ int main( int argc, char* args[] )
                     aquarium.addCoin(new Coin(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h, 10));
                 }
                 break;
-<<<<<<< HEAD
-								
-						// GUPPY TRY
-            case SDLK_g:
-                {
-                    SDL_Surface* imageLoader = loadSurface("ikan.png");
-                    aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
-                }
-                break;
-						// GUPPY TRY		
-						
-=======
             case SDLK_t:
                 {
                     SDL_Surface* imageLoader = loadSurface("unknown.png");
                     aquarium.addFood(new Food(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
                 }
                 break;
->>>>>>> c6ecbb1d7402458447da2e64d930e2a85c76c091
             // x untuk keluar
             case SDLK_x:
                 {

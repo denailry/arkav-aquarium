@@ -1,6 +1,7 @@
 #include "Guppy.hpp"
 #include <cmath>
 #include <time.h>
+
 #define LAPAR 100
 #define KOIN 1
 #define MATI 100
