@@ -129,10 +129,17 @@ void update_screen() {
 bool quit = false;
 std::set<SDL_Keycode> pressedKeys;
 std::set<SDL_Keycode> tappedKeys;
+bool leftButtonClicked = false;
+bool leftButtonPressed = false;
+bool leftButtonReleased = false;
+int mouseX = 0;
+int mouseY = 0;
 
 void handle_input() {
     SDL_Event e;
     if (!tappedKeys.empty()) tappedKeys.clear();
+    if (leftButtonReleased) leftButtonReleased = false;
+    if (leftButtonClicked) leftButtonClicked = false;
     while( SDL_PollEvent( &e ) != 0 )
         {
             if ( e.type == SDL_QUIT ) {
@@ -142,6 +149,25 @@ void handle_input() {
                 tappedKeys.insert(e.key.keysym.sym);
             } else if (e.type == SDL_KEYUP) {
                 pressedKeys.erase(e.key.keysym.sym);
+            } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    leftButtonClicked = true;
+                    leftButtonPressed = true;
+                    mouseX = e.button.x;
+                    mouseY = e.button.y;
+                }
+            } else if (e.type == SDL_MOUSEBUTTONUP) {
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    leftButtonReleased = true;
+                    leftButtonPressed = false;
+                    mouseX = e.button.x;
+                    mouseY = e.button.y;
+                }
+            } else if (e.type == SDL_MOUSEMOTION) {
+                if (leftButtonPressed) {
+                    mouseX = e.motion.x;
+                    mouseY = e.motion.y;
+                }
             }
         }
 }
@@ -156,4 +182,24 @@ const std::set<SDL_Keycode>& get_pressed_keys() {
 
 const std::set<SDL_Keycode>& get_tapped_keys() {
     return tappedKeys;
+}
+
+bool isLeftButtonClicked() {
+    return leftButtonClicked;
+}
+
+bool isLeftButtonPressed() {
+    return leftButtonPressed;
+}
+
+bool isLeftButtonReleased() {
+    return leftButtonReleased;
+}
+
+int getMouseX() {
+    return mouseX;
+}
+
+int getMouseY() {
+    return mouseY;
 }

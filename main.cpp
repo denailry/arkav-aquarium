@@ -7,11 +7,6 @@
 #include <time.h>
 #include <vector>
 
-// Kecepatan ikan
-const double speed = 100;
-// Posisi ikan
-double cy = SCREEN_HEIGHT / 2;
-double cx = SCREEN_WIDTH / 2;
 double AQUARIUM_HEIGHT = SCREEN_HEIGHT;
 // Shop
 const int margin = 10;
@@ -61,6 +56,9 @@ Aquarium& initialization() {
     // Counting AQUARIUM_HEIGHT
     imageLoader = loadSurface("shop-case.png");
     AQUARIUM_HEIGHT = AQUARIUM_HEIGHT - imageLoader->h;
+
+    // Add Aquarium as Button
+    addButton(0, SCREEN_WIDTH, imageLoader->h, SCREEN_HEIGHT, "aquarium");
 
     // INITIALIZE BUTTON
     imageLoader = loadSurface("shop-icon-guppy.jpg");
@@ -150,7 +148,6 @@ void updateScreen(Aquarium &aquarium) {
         draw_image(SHOP_ITEMS[i], distanceFromLeft+imageLoader->w/2, imageLoader->h/2);
         distanceFromLeft += imageLoader->w + margin;
     }
-    draw_image("cursor.png", cx, cy);
     draw_image(aquarium.getSnail().getImage(), aquarium.getSnail().getX(), aquarium.getSnail().getY());
     Element<Coin> *eCoin = aquarium.getCoins().getFirst();
     while (eCoin != NULL) {
@@ -206,26 +203,7 @@ int main( int argc, char* args[] )
         if (quit_pressed()) {
             running = false;
         }
-        // Gerakkan ikan selama tombol panah ditekan
-        // Kecepatan dikalikan dengan perbedaan waktu supaya kecepatan ikan
-        // konstan pada komputer yang berbeda.
-        for (auto key : get_pressed_keys()) {
-            switch (key) {
-            case SDLK_UP:
-                cy -= speed * sec_since_last;
-                break;
-            case SDLK_DOWN:
-                cy += speed * sec_since_last;
-                break;
-            case SDLK_LEFT:
-                cx -= speed * sec_since_last;
-                break;
-            case SDLK_RIGHT:
-                cx += speed * sec_since_last;
-                break;
-            }
-        }
-        
+
         // Proses masukan yang bersifat "tombol"
         for (auto key : get_tapped_keys()) {
             switch (key) {
@@ -242,34 +220,51 @@ int main( int argc, char* args[] )
                     aquarium.addFood(new Food(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
                 }
                 break;
-            // x untuk keluar
-            case SDLK_x:
-                {
-                    std::string name = buttonsCheck(cx, cy);
-                    if (name == "guppy") {
-                        SDL_Surface* imageLoader = loadSurface("ikan.png");
-                        aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
-                        aquarium.buy(10);
-                    } else if (name == "piranha") {
-                        SDL_Surface* imageLoader = loadSurface("ikan.png");
-                        aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
-                        aquarium.buy(25);
-                    } else if (name == "egg-1") {
-                        aquarium.buy(50);
-                    } else if (name == "egg-2") {
-                        aquarium.buy(100);
-                    } else if (name == "egg-3") {
-                        aquarium.buy(200);
+            }
+        }
+
+        if (isLeftButtonClicked()) {
+            std::string name = buttonsCheck(getMouseX(), getMouseY());
+            if (name == "guppy") {
+                SDL_Surface* imageLoader = loadSurface("ikan.png");
+                aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+                aquarium.buy(10);
+            } else if (name == "piranha") {
+                SDL_Surface* imageLoader = loadSurface("ikan.png");
+                aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
+                aquarium.buy(25);
+            } else if (name == "egg-1") {
+                aquarium.buy(50);
+            } else if (name == "egg-2") {
+                aquarium.buy(100);
+            } else if (name == "egg-3") {
+                aquarium.buy(200);
+            } else if (name == "aquarium") {
+                bool coinFound = false;
+                Element<Coin> *eCoin = aquarium.getCoins().getFirst();
+                while (eCoin != NULL) {
+                    Coin *coin = eCoin->getInfo();
+                    if (getMouseX() > coin->getLeft() &&
+                        getMouseX() < coin->getRight() &&
+                        getMouseY() > coin->getTop() &&
+                        getMouseY() < coin->getBottom()) {
+                        aquarium.remove(coin->getId(), TYPE_COIN);
+                        coinFound = true;
+                        break;
                     }
+                    eCoin = eCoin->getNext();
                 }
-                // running = false;
-                break;
+
+                if (!coinFound) {
+                    SDL_Surface* imageLoader = loadSurface("unknown.png");
+                    aquarium.addFood(new Food(getMouseX(), getMouseY(), imageLoader->w, imageLoader->h));
+                }
             }
         }
 
         // Update FPS setiap detik
         frames_passed++;
-        if (now - fpc_start > 1.0/120.0) {
+        if (now - fpc_start > 1.0/128.0) {
             updateFrame(aquarium, sec_since_last);
             std::ostringstream strs;
             strs << "FPS: " ;
