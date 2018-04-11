@@ -216,7 +216,7 @@ int main( int argc, char* args[] )
                 break;
             case SDLK_t:
                 {
-                    SDL_Surface* imageLoader = loadSurface("unknown.png");
+                    SDL_Surface* imageLoader = loadSurface("food.png");
                     aquarium.addFood(new Food(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
                 }
                 break;
@@ -226,11 +226,11 @@ int main( int argc, char* args[] )
         if (isLeftButtonClicked()) {
             std::string name = buttonsCheck(getMouseX(), getMouseY());
             if (name == "guppy") {
-                SDL_Surface* imageLoader = loadSurface("ikan.png");
+                SDL_Surface* imageLoader = loadSurface("small-guppy-left.png");
                 aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
                 aquarium.buy(10);
             } else if (name == "piranha") {
-                SDL_Surface* imageLoader = loadSurface("ikan.png");
+                SDL_Surface* imageLoader = loadSurface("piranha-right.png");
                 aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
                 aquarium.buy(25);
             } else if (name == "egg-1") {
@@ -256,7 +256,7 @@ int main( int argc, char* args[] )
                 }
 
                 if (!coinFound) {
-                    SDL_Surface* imageLoader = loadSurface("unknown.png");
+                    SDL_Surface* imageLoader = loadSurface("food.png");
                     aquarium.addFood(new Food(getMouseX(), getMouseY(), imageLoader->w, imageLoader->h));
                 }
             }

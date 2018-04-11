@@ -38,9 +38,9 @@ Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width
 	}
 
 	if (this->dirRight){	//menentukan gambar ikan yang dipakai
-		this->setImage("ikan.png");
+		this->setImage("small-guppy-right.png");
 	}else{
-		this->setImage("ikan_left.png");
+		this->setImage("small-guppy_left.png");
 	}
 	
 	this->setHunger(false);
@@ -122,7 +122,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 				}
 
 				if ((this->dirRight)&&((this->G)==1)){	//menentukan gambar ikan yang dipakai
-					this->setImage("ikan.png");
+					this->setImage("small-guppy-right.png");
 				}
 				else if ((this->dirRight)&&((this->G)==2)){
 					this->setImage("medium-guppy-right.png");
@@ -131,7 +131,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 					this->setImage("large-guppy-right.png");
 				}
 				else if ((!this->dirRight)&&((this->G)==1)){
-					this->setImage("ikan_left.png");
+					this->setImage("small-guppy-left.png");
 				}
 				else if ((!this->dirRight)&&((this->G)==2)){
 					this->setImage("medium-guppy-left.png");
@@ -166,7 +166,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 					}
 
 					if ((this->dirRight)&&((this->G)==3)){	//menentukan gambar ikan yang dipakai
-						this->setImage("ikan.png");
+						this->setImage("small-guppy-right.png");
 					}
 					else if ((this->dirRight)&&((this->G)==2)){
 						this->setImage("medium-guppy-right.png");
@@ -175,7 +175,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 						this->setImage("large-guppy-right.png");
 					}
 					else if ((!this->dirRight)&&((this->G)==3)){
-						this->setImage("ikan_left.png");
+						this->setImage("small-guppy-left.png");
 					}
 					else if ((!this->dirRight)&&((this->G)==2)){
 						this->setImage("medium-guppy-left.png");
@@ -219,7 +219,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 		}
 
 		if ((this->dirRight)&&((this->G)==1)){	//menentukan gambar ikan yang dipakai
-			this->setImage("ikan.png");
+			this->setImage("small-guppy-right.png");
 		}
 		else if ((this->dirRight)&&((this->G)==2)){
 			this->setImage("medium-guppy-right.png");
@@ -228,7 +228,7 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 			this->setImage("large-guppy-right.png");
 		}
 		else if ((!this->dirRight)&&((this->G)==1)){
-			this->setImage("ikan_left.png");
+			this->setImage("small-guppy-left.png");
 		}
 		else if ((!this->dirRight)&&((this->G)==2)){
 			this->setImage("medium-guppy-left.png");
