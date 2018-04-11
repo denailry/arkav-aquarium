@@ -2,10 +2,6 @@
 #include <iostream>
 
 Aquarium::Aquarium(int width, int top, int bottom) {
-	// this->screen = new LinkedList<Entity>*[height];
-	// for (int i = 0; i < height; ++i) {
-	// 	screen[i] = new LinkedList<Entity>[width];
-	// }
 	this->width = width;
 	this->top = top;
 	this->bottom = bottom;
@@ -16,24 +12,6 @@ Aquarium::Aquarium(int width, int top, int bottom) {
 	this->guppyNumber = 0;
 	this->piranhaNumber = 0;
 	this->gameOver = false;
-}
-
-// Aquarium::Aquarium(Aquarium const &aquarium) {
-// 	// this->screen = new LinkedList<Entity>*[aquarium.height];
-// 	// for (int i = 0; i < height; ++i) {
-// 	// 	screen[i] = new LinkedList<Entity>[width];
-// 	// }
-// 	// this->width = aquarium.;
-// 	// this->height = top;
-// 	// this->height = 
-// 	// this->money = 0;
-// }
-
-Aquarium::~Aquarium() {
-	// for (int i = 0; i < this->height; ++i) {
-	// 	delete screen[i];
-	// }
-	// delete screen;
 }
 
 void Aquarium::tickCoins(double delay) {
@@ -59,6 +37,12 @@ void Aquarium::tickGuppies(double delay) {
 		eGuppy->getInfo()->tick(foods, newCoin, delay);
 		eGuppy = eGuppy->getNext();
 	}
+
+	Element<Coin> *eCoin = newCoin.getFirst();
+	while (eCoin != NULL) {
+		this->addCoin(eCoin->getInfo());
+		eCoin = eCoin->getNext();
+	}
 }
 
 void Aquarium::tickPiranhas(double delay) {
@@ -74,10 +58,6 @@ void Aquarium::tickSnail(double delay) {
 		this->snail->tick(coins, delay);
 	}
 }
-
-// void Aquarium::printScreen() {
-// 	return;
-// }
 
 void Aquarium::addCoin(Coin *coin) {
 	coins.add(coin);
@@ -219,7 +199,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			eFood = eFood->getNext();
 			i++;
 		}
-		checkLoseCondition();
+		// checkLoseCondition();
 	} else if (entityType == TYPE_GUPPY) {
 		Element<Guppy> *eGuppy = guppies.getFirst();
 		int i = 0;
@@ -232,7 +212,7 @@ void Aquarium::remove(int entityId, int entityType) {
 			eGuppy = eGuppy->getNext();
 			i++;
 		}
-		checkLoseCondition();
+		// checkLoseCondition();
 	} else if (entityType == TYPE_PIRANHA) {
 		Element<Piranha> *ePiranha = piranhas.getFirst();
 		int i = 0;

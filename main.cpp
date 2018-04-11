@@ -29,6 +29,16 @@ typedef struct {
 
 std::vector<Button> buttons;
 
+std::string toString(int integer) {
+    std::string str = "";
+    while (integer > 0) {
+        char c = (integer % 10) + 48;
+        str = c + str;
+        integer = integer / 10;
+    }
+    return str;
+}
+
 void addButton(double left, double right, double top, double bot, std::string name) {
     Button *button = new Button;
     button->left = left;
@@ -175,7 +185,8 @@ void updateScreen(Aquarium &aquarium) {
         eFood = eFood->getNext();
     }
 
-    // draw_text("Money: " + aquarium.getMoney(), 18, 10, 10, 0, 0, 0);
+    std::string money = toString(aquarium.getMoney());
+    draw_text(money, 18, 10, SCREEN_HEIGHT-36, 0, 0, 0);
 
     // if (aquarium.isGameOver()) {
     //     draw_text("GAME OVER", 18, 10, 10, 0, 0, 0);
@@ -190,7 +201,7 @@ void handleMouseClick(Aquarium &aquarium) {
         if (name == "guppy") {
             SDL_Surface* imageLoader = loadSurface("small-guppy-left.png");
             aquarium.addGuppy(new Guppy(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));
-            aquarium.buy(10);
+            //aquarium.buy(10);
         } else if (name == "piranha") {
             SDL_Surface* imageLoader = loadSurface("piranha-right.png");
             aquarium.addPiranha(new Piranha(rand() % SCREEN_WIDTH + 1, aquarium.getTop()+(imageLoader->h/2), imageLoader->w, imageLoader->h));

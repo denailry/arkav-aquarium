@@ -65,15 +65,6 @@ public:
 	// Initialize score
 	Aquarium(int width, int top, int bottom);
 
-	// Copy Constructor
-	// Aquarium(Aquarium const &aquarium);
-
-	// Destructor
-	~Aquarium();
-
-	// Print screen to show position of every entities
-	// void printScreen();
-
 	// Adder
 	// First add each entity to screen
 	// If true then add to corresponding list
