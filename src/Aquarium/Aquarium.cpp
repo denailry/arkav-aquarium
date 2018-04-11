@@ -141,6 +141,14 @@ int Aquarium::getBottom() {
 	return this->bottom;
 }
 
+bool Aquarium::buy(int price) {
+	if (money < price) {
+		return false;
+	}
+	money = money - price;
+	return true;
+}
+
 void Aquarium::tick(double delay) {	
 	tickCoins(delay);
 	tickFoods(delay);

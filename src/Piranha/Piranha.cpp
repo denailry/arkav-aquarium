@@ -1,5 +1,6 @@
 #include "Piranha.hpp"
 #include <cmath>
+#include <iostream>
 
 double distanceWithGuppy(double pos1X, double pos1Y, double pos2X, double pos2Y) {
 	double xDiff = std::abs(pos1X - pos2X);
