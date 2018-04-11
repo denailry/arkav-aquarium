@@ -272,7 +272,6 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 			setDirection(getDirection()+2*atan(1));
 		}
 	}
-	//increaseTick();
 }
 
 Food* Guppy::findNearestFood(LinkedList<Food> &foods){
