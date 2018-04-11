@@ -2,10 +2,6 @@
 #include <iostream>
 
 Aquarium::Aquarium(int width, int top, int bottom) {
-	// this->screen = new LinkedList<Entity>*[height];
-	// for (int i = 0; i < height; ++i) {
-	// 	screen[i] = new LinkedList<Entity>[width];
-	// }
 	this->width = width;
 	this->top = top;
 	this->bottom = bottom;
@@ -16,24 +12,6 @@ Aquarium::Aquarium(int width, int top, int bottom) {
 	this->guppyNumber = 0;
 	this->piranhaNumber = 0;
 	this->gameOver = false;
-}
-
-// Aquarium::Aquarium(Aquarium const &aquarium) {
-// 	// this->screen = new LinkedList<Entity>*[aquarium.height];
-// 	// for (int i = 0; i < height; ++i) {
-// 	// 	screen[i] = new LinkedList<Entity>[width];
-// 	// }
-// 	// this->width = aquarium.;
-// 	// this->height = top;
-// 	// this->height = 
-// 	// this->money = 0;
-// }
-
-Aquarium::~Aquarium() {
-	// for (int i = 0; i < this->height; ++i) {
-	// 	delete screen[i];
-	// }
-	// delete screen;
 }
 
 void Aquarium::tickCoins(double delay) {
@@ -73,10 +51,6 @@ void Aquarium::tickSnail(double delay) {
 		this->snail->tick(coins, delay);
 	}
 }
-
-// void Aquarium::printScreen() {
-// 	return;
-// }
 
 void Aquarium::addCoin(Coin *coin) {
 	coins.add(coin);
