@@ -254,5 +254,14 @@ bool Aquarium::isExist(int entityId, int entityType) {
 			eFood = eFood->getNext();
 		}	
 	}
+	if (entityType == TYPE_GUPPY) {
+		Element<Guppy> *eGuppy = guppies.getFirst();
+		while (eGuppy != NULL) {
+			if (eGuppy->getInfo()->getId() == entityId) {
+				return true;
+			}
+			eGuppy = eGuppy->getNext();
+		}	
+	}
 	return false;
 }
