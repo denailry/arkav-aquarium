@@ -31,6 +31,12 @@ private:
 	LinkedList<Piranha> piranhas;
 	Snail* snail;
 
+	// Entity counter
+	int coinNumber;
+	int foodNumber;
+	int guppyNumber;
+	int piranhaNumber;
+
 	// Collected score from collected coins
 	int money;
 
@@ -91,5 +97,4 @@ public:
 	void remove(int entityId, int entityType);
 	bool isExist(int entityId, int entityType);
 };
-
 #endif
