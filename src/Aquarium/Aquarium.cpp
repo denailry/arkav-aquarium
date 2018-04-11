@@ -47,9 +47,16 @@ void Aquarium::tickGuppies(double delay) {
 
 void Aquarium::tickPiranhas(double delay) {
 	Element<Piranha> *ePiranha = piranhas.getFirst();
+	LinkedList<Coin> newCoin;
 	while (ePiranha != NULL) {
-		ePiranha->getInfo()->tick(guppies, delay);
+		ePiranha->getInfo()->tick(guppies, newCoin, delay);
 		ePiranha = ePiranha->getNext();
+	}
+
+	Element<Coin> *eCoin = newCoin.getFirst();
+	while (eCoin != NULL) {
+		this->addCoin(eCoin->getInfo());
+		eCoin = eCoin->getNext();
 	}
 }
 
