@@ -6,8 +6,6 @@
 #include "../Food/Food.hpp"
 #include "../Coin/Coin.hpp"
 
-enum growth : int {small=1,medium=2,large=3};
-
 class Guppy : public Fish
 {
 public:
@@ -15,11 +13,11 @@ public:
     Guppy(double x, double y, double width, double height);
     //Get & set
     int getC() const;
-    growth getG() const;
+    int getG() const;
     int getLastFed() const;
     int getLastCoin() const;
     void setC(int);
-    void setG(growth);
+    void setG(int);
     void setLastFed(int);
     void setLastCoin(int);
     //Service
@@ -27,7 +25,7 @@ public:
 private:
     /* Atribut untuk guppy (boleh ditambah kalau belum lengkap): */
     int C; // Waktu periode ikan mengeluarkan koin
-    growth G;
+    int G;
 		int growthCounter; //baru nih, masukin ke perubahan
     int lastFed;
     int lastCoin;

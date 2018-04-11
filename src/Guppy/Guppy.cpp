@@ -23,7 +23,7 @@ double distanceWithFood(double pos1X, double pos1Y, double pos2X, double pos2Y) 
 
 Guppy::Guppy(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_GUPPY) {
 	setC(640);
-	setG(small);
+	setG(1);
 	growthCounter=0;
 	setLastFed(this->tickTime);
 	setLastCoin(this->tickTime);
@@ -51,7 +51,7 @@ int Guppy::getC() const{
 	return this->C;
 }
 
-growth Guppy::getG() const{
+int Guppy::getG() const{
 	return this->G;
 }
 
@@ -67,7 +67,7 @@ void Guppy::setC(int c){
 	this->C = c;
 }
 
-void Guppy::setG(growth g){
+void Guppy::setG(int g){
 	this->G = g;
 }
 
@@ -80,24 +80,29 @@ void Guppy::setLastCoin(int lc){
 }
 
 //Service
-void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay){
+void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &newCoins, double delay){
 	bool cek = false;
-	/*if (((this->getTickTime())-lastCoin)>=KOIN){
+	cout << 1 << endl;
+	if (((this->getTickTime())-lastCoin)>=KOIN){
+		cout << 2 << endl;
 		lastCoin=(this->getTickTime());
-		if ((this->G)==1){
+		if ((this->G) == 1){
+			cout << 3 << endl;
 			Coin *a = new Coin(this->getX(),this->getY(),20,20,50);//value untuk koin harus selalu 50 untuk guppy tahap pertama, nanti bisa diubah kalo perlu
 			a->setImage("koin-murah.png");
-			coins.add(a);
+			newCoins.add(a);
 		}else if ((this->G)==2){
+			cout << 4 << endl;
 			Coin *a = new Coin(this->getX(),this->getY(),20,20,75);//value untuk koin harus selalu 75 untuk guppy tahap kedua, nanti bisa diubah kalo perlu
 			a->setImage("koin-sedang.png");
-			coins.add(a);
+			//coins.add(a);
 		}else if ((this->G)==3){
+			cout << 5 << endl;
 			Coin *a = new Coin(this->getX(),this->getY(),20,20,100);//value untuk koin harus selalu 100 untuk guppy tahap ketiga, nanti bisa diubah kalo perlu
 			a->setImage("koin-mahal.png");
-			coins.add(a);
+			//coins.add(a);
 		}
-	}*/
+	}
 	
 	if (this->hunger){
 		if ((this->tickTime - this->lastFed)>=LAPAR+MATI){
@@ -159,15 +164,12 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &coins, double delay)
 						cek = true;
 					}
 				}
-
-			
-
 			}
 		}
 	}
 
 	if (!cek){
-		cout << 5 << endl;
+		
 		if (((this->tickTime)-(this->lastDrift))>=this->driftLength){
 			setDirection(fRand(0,8*atan(1)));	//randomize direction
 			driftLength = rand() % 200;	//maksimal 3 tick
