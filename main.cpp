@@ -57,6 +57,9 @@ Aquarium& initialization() {
     imageLoader = loadSurface("shop-case.png");
     AQUARIUM_HEIGHT = AQUARIUM_HEIGHT - imageLoader->h;
 
+    // Add Aquarium as Button
+    addButton(0, SCREEN_WIDTH, imageLoader->h, SCREEN_HEIGHT, "aquarium");
+
     // INITIALIZE BUTTON
     imageLoader = loadSurface("shop-icon-guppy.png");
     std::string buttonNames[5] = {
@@ -236,6 +239,19 @@ int main( int argc, char* args[] )
                 aquarium.buy(100);
             } else if (name == "egg-3") {
                 aquarium.buy(200);
+            } else if (name == "aquarium") {
+                Element<Coin> *eCoin = aquarium.getCoins().getFirst();
+                while (eCoin != NULL) {
+                    Coin *coin = eCoin->getInfo();
+                    if (getMouseX() > coin->getLeft() &&
+                        getMouseX() < coin->getRight() &&
+                        getMouseY() > coin->getTop() &&
+                        getMouseY() < coin->getBottom()) {
+                        aquarium.remove(coin->getId(), TYPE_COIN);
+                        break;
+                    }
+                    eCoin = eCoin->getNext();
+                }
             }
         }
 
