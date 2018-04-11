@@ -9,7 +9,25 @@ double distanceWithGuppy(double pos1X, double pos1Y, double pos2X, double pos2Y)
 }
 
 Piranha::Piranha(double x, double y, double width, double height) : Fish(x, y, width, height, TYPE_PIRANHA){
-	setLastFed(this->tickTime); 
+		setLastFed(this->tickTime);
+		setLastCoin(this->tickTime);
+		driftLength=200;
+		lastDrift = this->tickTime;
+		
+		setDirection(fRand(0,8*atan(1)));
+		if ((getDirection()>=2*atan(1))&&(getDirection()<=6*atan(1))){
+			setDirRight(true);
+		}else{
+			setDirRight(false);
+		}
+
+		if (this->dirRight){	//menentukan gambar ikan yang dipakai
+			this->setImage("piranha-right.png");
+		}else{
+			this->setImage("piranha-left.png");
+		}
+		
+		this->setHunger(false);
 }
 
 int Piranha::getLastFed() const{
@@ -25,30 +43,32 @@ void Piranha::tick(LinkedList<Guppy> const& guppies, LinkedList<Coin> &coins, do
 
 Guppy& Piranha::findNearestGuppy(LinkedList<Guppy> &guppies){
 	Element<Guppy>* eGuppy = guppies.getFirst();
-	
-	Guppy *nearestGuppy = eGuppy->getInfo();
-	double minDistance = distanceWithGuppy(
-		this->getX(),
-		this->getY(),
-		nearestGuppy->getX(), 
-		nearestGuppy->getY());
-
-	eGuppy = eGuppy->getNext();
-	while (eGuppy != NULL) {
-		double distance = distanceWithGuppy(
+	if (eGuppy != NULL){
+		Guppy *nearestGuppy = eGuppy->getInfo();
+		double minDistance = distanceWithGuppy(
 			this->getX(),
 			this->getY(),
-			eGuppy->getInfo()->getX(), 
-			eGuppy->getInfo()->getY());
-		if (distance < minDistance) {
-			minDistance = distance;
-			nearestGuppy = eGuppy->getInfo();
-		}
+			nearestGuppy->getX(), 
+			nearestGuppy->getY());
 
 		eGuppy = eGuppy->getNext();
-	}
+		while (eGuppy != NULL) {
+			double distance = distanceWithGuppy(
+				this->getX(),
+				this->getY(),
+				eGuppy->getInfo()->getX(), 
+				eGuppy->getInfo()->getY());
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearestGuppy = eGuppy->getInfo();
+			}
 
-	return *nearestGuppy;
+			eGuppy = eGuppy->getNext();
+		}
+		return nearestGuppy;
+	}else{
+		return NULL;
+	}
 }
     
 bool Piranha::isAbleToConsume(Guppy const& guppy){	//belum diimplementasi
