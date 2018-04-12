@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-#define LAPAR 200
+#define LAPAR 1000
 #define KOIN 640
 #define MATI 2000
 #define NGEGEDEIN 5
@@ -116,7 +116,19 @@ void Guppy::tick(LinkedList<Food> &foods, LinkedList<Coin> &newCoins, double del
 					this->getSpace()->remove(food->getId(), TYPE_FOOD);
 					setLastFed(this->tickTime);
 					setHunger(false);
-					growthCounter++;
+					if (this->G < 3){
+						growthCounter++;
+
+						if (growthCounter == NGEGEDEIN){
+							if (this->G == 1){
+								setG(2);
+							}else if (this->G == 2){
+								setG(3);
+							}
+							growthCounter = 0;
+						}
+					}
+
 				}else{	//kalau tidak bisa consume makanan
 					//ngejar food, belum implementasi (findNearestFood, setDir, setSpeed)
 					if (food != NULL){
